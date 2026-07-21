@@ -1,0 +1,92 @@
+{
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/App.jsx": {
+    "mtime": 1784219928.0,
+    "ast_hash": "17ee0c6e0b130c92e4711991dfcf3642",
+    "semantic_hash": "17ee0c6e0b130c92e4711991dfcf3642"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Bar.jsx": {
+    "mtime": 1784219832.0,
+    "ast_hash": "03cd766e1cc26289b91be61b086adf55",
+    "semantic_hash": "03cd766e1cc26289b91be61b086adf55"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Contatti.jsx": {
+    "mtime": 1783930539.0,
+    "ast_hash": "d977249dd1f06665e6c125f2897a06f5",
+    "semantic_hash": "d977249dd1f06665e6c125f2897a06f5"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Decor.jsx": {
+    "mtime": 1784058986.0,
+    "ast_hash": "2b2eb3eb7dc6cac070295107960cbe51",
+    "semantic_hash": "2b2eb3eb7dc6cac070295107960cbe51"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Eventi.jsx": {
+    "mtime": 1783903234.0,
+    "ast_hash": "00851f31e74ae569c3bb593baaa29473",
+    "semantic_hash": "00851f31e74ae569c3bb593baaa29473"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Footer.jsx": {
+    "mtime": 1784059026.0,
+    "ast_hash": "0051d583c71c9a6997036af9a91faf38",
+    "semantic_hash": "0051d583c71c9a6997036af9a91faf38"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Gallery.jsx": {
+    "mtime": 1784219890.0,
+    "ast_hash": "cf0234b180b07f7b5206c068dc30e372",
+    "semantic_hash": "cf0234b180b07f7b5206c068dc30e372"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Hero.jsx": {
+    "mtime": 1784229997.0,
+    "ast_hash": "04f5b7d4e99805a8e6c077f38a38c978",
+    "semantic_hash": "04f5b7d4e99805a8e6c077f38a38c978"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Intro.jsx": {
+    "mtime": 1784021044.0,
+    "ast_hash": "80361c88c93e6be036f32b9bfd0e7491",
+    "semantic_hash": "80361c88c93e6be036f32b9bfd0e7491"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Logo.jsx": {
+    "mtime": 1783903117.0,
+    "ast_hash": "b51ea83fbadd75d6de5e528e021c8d15",
+    "semantic_hash": "b51ea83fbadd75d6de5e528e021c8d15"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Nav.jsx": {
+    "mtime": 1783930522.0,
+    "ast_hash": "719f11e2f89fa0a49221b000faba7df3",
+    "semantic_hash": "719f11e2f89fa0a49221b000faba7df3"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Preloader.jsx": {
+    "mtime": 1784062885.0,
+    "ast_hash": "0aa3522f0cabeb54615435cfe165b788",
+    "semantic_hash": "0aa3522f0cabeb54615435cfe165b788"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Prenota.jsx": {
+    "mtime": 1784021056.0,
+    "ast_hash": "1ce61c2b399601e139f0b78df216e603",
+    "semantic_hash": "1ce61c2b399601e139f0b78df216e603"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/ProssimiEventi.jsx": {
+    "mtime": 1784027990.0,
+    "ast_hash": "5129100987786ea951041fee1097d649",
+    "semantic_hash": "5129100987786ea951041fee1097d649"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/Spiaggia.jsx": {
+    "mtime": 1784219826.0,
+    "ast_hash": "f05df72b17d39ad40dfd3dd08a692774",
+    "semantic_hash": "f05df72b17d39ad40dfd3dd08a692774"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/components/VideoLoop.jsx": {
+    "mtime": 1784229979.0,
+    "ast_hash": "4f8270d68938e244420412b30b1097de",
+    "semantic_hash": "4f8270d68938e244420412b30b1097de"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/lib/motion.js": {
+    "mtime": 1783903729.0,
+    "ast_hash": "781ee23067d74aa1b8340bab52b87020",
+    "semantic_hash": "781ee23067d74aa1b8340bab52b87020"
+  },
+  "/Users/giorgio/Desktop/sito prova/bagno-maria-redesign/src/main.jsx": {
+    "mtime": 1783903131.0,
+    "ast_hash": "0a9f1a0a8bc479c03ef80c2d06298024",
+    "semantic_hash": "0a9f1a0a8bc479c03ef80c2d06298024"
+  }
+}
