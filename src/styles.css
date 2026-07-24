@@ -1002,9 +1002,14 @@ address {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.day-services span,
-.day-services a {
-  padding: 1.4rem 1rem;
+.day-services > span,
+.day-services > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.6rem 1rem;
   border-right: 1px solid var(--line-dark);
   color: inherit;
   text-decoration: none;
@@ -1013,11 +1018,37 @@ address {
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
-.day-services span:last-child,
-.day-services a:last-child {
+.day-services > a:hover {
+  background: var(--sea-light);
+}
+
+.day-services > span:last-child,
+.day-services > a:last-child {
   border-right: 0;
+}
+
+/* Inner spans (text labels) inside the flex containers */
+.day-services > span > span,
+.day-services > a > span {
+  border: 0;
+  padding: 0;
+  display: inline;
+}
+
+.service-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  color: var(--sea);
+  flex-shrink: 0;
+  transition: color 0.35s ease, transform 0.35s ease;
+}
+
+.day-services > a:hover .service-icon {
+  color: var(--ink);
+  transform: scale(1.08);
 }
 
 /* Puglian flavours */
@@ -2351,13 +2382,13 @@ address {
     grid-template-columns: 1fr 1fr;
   }
 
-  .day-services span:nth-child(2),
-  .day-services a:nth-child(2) {
+  .day-services > span:nth-child(2),
+  .day-services > a:nth-child(2) {
     border-right: 0;
   }
 
-  .day-services span:nth-child(-n + 2),
-  .day-services a:nth-child(-n + 2) {
+  .day-services > span:nth-child(-n + 2),
+  .day-services > a:nth-child(-n + 2) {
     border-bottom: 1px solid var(--line-dark);
   }
 
@@ -2563,10 +2594,15 @@ address {
     margin-top: 5rem;
   }
 
-  .day-services span,
-  .day-services a {
+  .day-services > span,
+  .day-services > a {
     padding-inline: 0.45rem;
     font-size: 0.57rem;
+  }
+
+  .service-icon {
+    width: 1.8rem;
+    height: 1.8rem;
   }
 
   .taste-color {
