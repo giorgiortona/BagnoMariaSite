@@ -29,7 +29,7 @@ export default function Footer() {
       </div>
 
       <p className="footer-credit">
-        created by <strong>Dimana.DigitalCreations</strong>
+        created by <a href="https://www.instagram.com/dimana.digitalcreations/" target="_blank" rel="noreferrer"><strong>Dimana.DigitalCreations</strong></a>
       </p>
     </footer>
   )
