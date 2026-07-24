@@ -8,8 +8,8 @@ export default defineConfig({
        finivamo sulla porta di un altro sito già avviato, e il browser ci
        mostrava la sua icona e la sua cache. `strictPort` fa fallire l'avvio
        con un messaggio chiaro invece di scivolare in silenzio altrove. */
-    port: Number(process.env.PORT) || 5180,
-    strictPort: true,
+    port: Number(process.env.PORT) || 5185,
+    strictPort: false,
     /* In ascolto su tutte le interfacce, non solo localhost: così il sito è
        raggiungibile dai dispositivi sulla stessa rete (utile per provarlo
        da telefono). */
