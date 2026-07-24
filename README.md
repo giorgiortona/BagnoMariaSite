@@ -14,10 +14,19 @@ Design minimale ed elegante in bianco e azzurro, foto protagoniste, animazioni G
 
 ```bash
 npm install     # prima volta
-npm run dev     # sviluppo → http://localhost:5173
+npm run dev     # sviluppo → http://localhost:5180
 npm run build   # produzione → cartella dist/
-npm run preview # anteprima della build
+npm run preview # anteprima della build → http://localhost:5181
 ```
+
+Il progetto usa una **porta dedicata (5180)** con `strictPort`. Non è un
+dettaglio estetico: con la 5173 (il default di Vite) si finiva sulla porta
+di un altro sito già avviato, e il browser mostrava nella scheda l'icona e
+la cache di quel progetto. Se la 5180 risulta occupata l'avvio fallisce con
+un messaggio chiaro, invece di scivolare in silenzio altrove.
+
+Per lo stesso motivo le icone hanno un nome proprio
+(`favicon-bagnomaria.svg`) e non il generico `favicon.svg`.
 
 ## Struttura
 

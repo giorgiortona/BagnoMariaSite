@@ -1,3 +1,5 @@
+import VideoLoop from './VideoLoop.jsx'
+
 function SunLines() {
   return (
     <svg className="manifesto-sun" viewBox="0 0 420 420" aria-hidden="true">
@@ -15,10 +17,10 @@ export default function Intro() {
     <section className="manifesto" id="spiaggia">
       <div className="manifesto-visual">
         <div className="manifesto-photo" data-media-reveal>
-          <img
-            src="/media/baia-drone.webp"
-            alt="La spiaggia di Santa Maria al Bagno vista dall'alto"
-            loading="eager"
+          <VideoLoop
+            src="/media/spiaggia-drone.mp4"
+            poster="/media/spiaggia-drone-poster.webp"
+            aria-label="La spiaggia di Santa Maria al Bagno ripresa dal drone"
           />
         </div>
         <SunLines />

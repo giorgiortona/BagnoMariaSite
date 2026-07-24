@@ -353,6 +353,24 @@ address {
   transition-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
 }
 
+/* La scritta accompagna l'ombrellone: ogni lettera scende e risale con un
+   piccolo ritardo sulla precedente, così l'onda corre da sinistra a destra.
+   Spostamento minimo (50 unità su 1209 di altezza): deve sentirsi appena. */
+.logo-letter {
+  transform-box: view-box;
+  /* Risalita lunga e morbida: niente rimbalzo, solo una decelerazione che si
+     spegne piano. Lo scaglionamento è ampio perché l'onda si deve vedere
+     viaggiare lungo la parola, non arrivare tutta insieme. */
+  transition: transform 920ms cubic-bezier(0.25, 1.02, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+
+.logo.is-closed .logo-letter {
+  transform: translateY(56px);
+  transition-duration: 420ms;
+  transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
 /* col mouse: accenno di chiusura, per far capire che risponde */
 @media (hover: hover) and (pointer: fine) {
   a:hover > .brand > .brand-wordmark .logo-panel-left {
@@ -743,7 +761,7 @@ address {
   width: min(68%, 37rem);
   height: min(66vh, 46rem);
   transform: translate(-50%, -50%);
-  border-radius: 50% 50% 0.5rem 0.5rem;
+  border-radius: 0.75rem;
   box-shadow: 0 2rem 5rem rgba(3, 31, 51, 0.25);
 }
 
@@ -1366,14 +1384,28 @@ address {
   gap: clamp(1.25rem, 3vw, 3rem);
   cursor: grab;
   overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
+  /* Niente scroll-snap: con `mandatory` e allineamento al centro il
+     browser ricentrava a forza la cartolina e tornando verso sinistra
+     rimbalzavi indietro. Anche `proximity` riagganciava a ogni piccolo
+     movimento del trackpad. Per una galleria da trascinare lo scorrimento
+     libero è più prevedibile. */
+  scroll-behavior: auto;
   scrollbar-color: var(--sun) rgba(255, 250, 240, 0.12);
   scrollbar-width: thin;
 }
 
+.gallery-track.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* durante il trascinamento le foto non devono catturare il gesto */
+.gallery-track.is-dragging .gallery-item {
+  pointer-events: none;
+}
+
 .gallery-item {
   flex: 0 0 min(62vw, 51rem);
-  scroll-snap-align: center;
 }
 
 .gallery-item-2 {

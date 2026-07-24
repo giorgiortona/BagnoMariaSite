@@ -8,9 +8,18 @@ const MESI = [
 const GIORNI = ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do']
 
 /* Booking engine ufficiale di spiagge.it, incorporabile via iframe:
-   https://www.spiagge.it/developers-booking-engine-embed/ */
+   https://www.spiagge.it/developers-booking-engine-embed/
+
+   Il codice licenza è `it-le-73050-bagnomaria` (73050 è il CAP di Santa
+   Maria al Bagno) — si legge nel campo "license" della scheda ufficiale
+   del lido su spiagge.it. Non va confuso con il 10119 dell'indirizzo
+   pubblico, che è l'id della pagina: con quello il widget risponde
+   "le prenotazioni online non sono ancora aperte".
+
+   Puntiamo direttamente a new-widget: il vecchio dominio reindirizza qui
+   ma per strada perde le date che gli passiamo. */
 const WIDGET_BASE =
-  'https://widget.spiagge.it/stabilimenti-balneari/prenotazione/it-le-10119-bagnomaria/'
+  'https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-le-73050-bagnomaria'
 
 function isoLocale(d) {
   const p = (n) => String(n).padStart(2, '0')

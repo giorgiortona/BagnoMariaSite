@@ -66,7 +66,6 @@ export default function Hero({ ready }) {
           src="/media/mare-desktop.mp4"
           srcMobile="/media/mare-mobile.mp4"
           poster="/media/hero-poster.webp"
-          loop={false}
         />
         <div className="hero-shade" />
       </div>
