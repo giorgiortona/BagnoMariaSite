@@ -9,7 +9,6 @@ export default function Bar() {
 
       <div className="taste-grid">
         <div className="taste-copy">
-          <span className="section-index" data-reveal>03 / Sapori</span>
           <h2 data-reveal>Il Salento si mangia<br /><em>con le mani.</em></h2>
           <p data-reveal>
             Friselle, pomodori, olio buono. Poi cocktail,

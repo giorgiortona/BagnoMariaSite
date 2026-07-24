@@ -6,7 +6,6 @@ export default function Footer() {
       <div className="footer-sun" aria-hidden="true" />
       <div className="footer-top">
         <a href="#top" aria-label="Bagno Maria — torna all'inizio"><Logo light /></a>
-        <p>Una piccola spiaggia.<br />Un’estate intera.</p>
         <a className="footer-up" href="#top">Torna su ↑</a>
       </div>
 

@@ -24,11 +24,9 @@ export default function Intro() {
           />
         </div>
         <SunLines />
-        <p className="manifesto-coordinate">Ionio · 40.1305° N / 17.9935° E</p>
       </div>
 
       <div className="manifesto-copy">
-        <span className="section-index" data-reveal>01 / La spiaggia</span>
         <p className="display-copy" data-reveal>
           Qui il mare<br />
           entra <em>piano.</em>
@@ -51,7 +49,6 @@ export default function Intro() {
             <span>tramonti da ricordare</span>
           </div>
         </div>
-        <p className="hand-note" data-reveal>tra Gallipoli e Santa Caterina</p>
       </div>
     </section>
   )

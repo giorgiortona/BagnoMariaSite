@@ -32,7 +32,6 @@ export default function Spiaggia() {
     <section className="day-section" id="giornata">
       <div className="section-shell">
         <header className="day-header">
-          <span className="section-index" data-reveal>02 / La giornata</span>
           <h2 data-reveal>Dal primo caffè<br />all’ultimo <em>raggio.</em></h2>
           <p data-reveal>
             Nessun programma rigido. Solo il tempo scandito dal sole,

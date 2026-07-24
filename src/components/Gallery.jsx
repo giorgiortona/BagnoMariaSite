@@ -89,7 +89,6 @@ export default function Gallery() {
   return (
     <section className="gallery" id="galleria">
       <header className="gallery-head section-shell">
-        <span className="section-index" data-reveal>05 / Cartoline</span>
         <h2 data-reveal>Un po’ di Salento<br />da portare <em>con te.</em></h2>
         <p data-reveal>Trascina per attraversare la nostra estate.</p>
       </header>

@@ -82,7 +82,6 @@ export default function Hero({ ready }) {
       </div>
 
       <div className="hero-bottom">
-        <p>Una piccola spiaggia, il sole della Puglia<br />e tutto il tempo per stare bene.</p>
         <a className="button button-sun" href="#prenota">
           Prenota il tuo posto <span aria-hidden="true">↗</span>
         </a>

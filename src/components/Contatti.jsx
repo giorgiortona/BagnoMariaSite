@@ -2,7 +2,6 @@ export default function Contatti() {
   return (
     <section className="contact" id="contatti">
       <div className="contact-top">
-        <span className="section-index" data-reveal>07 / Vieni al mare</span>
         <h2 data-reveal>Sei già<br /><em>quasi qui.</em></h2>
         <a
           className="contact-map-link"
@@ -22,7 +21,6 @@ export default function Contatti() {
             Via Fra Graziano da Nardò, 30<br />
             73048 Santa Maria al Bagno (LE)
           </address>
-          <p>40.1305° N<br />17.9935° E</p>
         </div>
         <div className="contact-hours" data-reveal>
           <span>Quando</span>

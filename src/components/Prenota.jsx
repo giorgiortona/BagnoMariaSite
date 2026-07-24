@@ -238,12 +238,7 @@ export default function Prenota() {
       <div className="prenota-orbit" aria-hidden="true"><span>sole · mare · relax · </span></div>
       <div className="section-shell prenota-grid">
         <div className="prenota-copy">
-          <span className="section-index" data-reveal>06 / Prenota</span>
           <h2 data-reveal>Scegli i giorni.<br /><em>Il mare è già qui.</em></h2>
-          <p data-reveal>
-            Seleziona sul calendario il giorno di arrivo e quello di partenza:
-            l&rsquo;ombrellone e i lettini ti aspettano in riva al mare.
-          </p>
 
           <p className="prenota-riepilogo" data-reveal aria-live="polite">
             <span className="script">{riepilogo}</span>
@@ -266,11 +261,6 @@ export default function Prenota() {
               Richiedi via email
             </a>
           </div>
-          <p className="prenota-nota" data-reveal>
-            Scelta del posto, conferma e pagamento avvengono qui sul sito,
-            attraverso il circuito sicuro di spiagge.it — il sistema di
-            prenotazione ufficiale del lido.
-          </p>
         </div>
 
         <div className="prenota-cal" data-reveal data-delay="0.1">

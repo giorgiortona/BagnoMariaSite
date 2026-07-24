@@ -33,7 +33,6 @@ export default function Eventi() {
       {/* testo e cartolina partono dalla stessa riga */}
       <div className="events-top">
         <div className="events-copy">
-          <span className="section-index" data-reveal>04 / Eventi</span>
           <h2 data-reveal>Ci sono sere che<br />restano <em>addosso.</em></h2>
           <p data-reveal>
             Quando l’ultimo ombrellone si chiude, la spiaggia resta a voi: tre modi
@@ -49,7 +48,7 @@ export default function Eventi() {
             <img src="/media/foto-sposi.jpeg" alt="Festa degli sposi al Bagno Maria" loading="lazy" />
           </div>
           <div className="event-poster-copy">
-            <span>Prossimo appuntamento</span>
+            <span>non vediamo l'ora di organizzare</span>
             <strong>Il tuo evento in spiaggia</strong>
           </div>
         </aside>
