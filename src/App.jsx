@@ -9,6 +9,7 @@ import Hero from './components/Hero.jsx'
 import Intro from './components/Intro.jsx'
 import Spiaggia from './components/Spiaggia.jsx'
 import Bar from './components/Bar.jsx'
+import Menu from './components/Menu.jsx'
 import Eventi from './components/Eventi.jsx'
 import Gallery from './components/Gallery.jsx'
 import Prenota from './components/Prenota.jsx'
@@ -186,6 +187,7 @@ export default function App() {
         <Spiaggia />
         <WaveBorder className="site-greca site-greca-sky" />
         <Bar />
+        <Menu />
         <Eventi />
         <Gallery />
         <MareScena />

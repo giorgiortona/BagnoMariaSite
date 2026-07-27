@@ -1222,6 +1222,166 @@ address {
   margin-top: -0.4rem;
 }
 
+/* Interfaccia Menù a tutto schermo */
+.menu-page {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--sand);
+  color: var(--ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.menu-page-header {
+  position: relative;
+  background: var(--sea-light);
+  border-bottom: 1px solid var(--line-dark);
+  padding-top: 5rem;
+}
+
+.menu-page-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 3rem) var(--pad);
+}
+
+.menu-page-title {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.menu-page-title h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.menu-page-title h2 em {
+  font-style: italic;
+  color: var(--sun);
+}
+
+/* Bottoni */
+.menu-page-close {
+  position: fixed;
+  top: clamp(6.5rem, 8vw, 8rem);
+  right: var(--pad);
+  z-index: 100;
+  background: var(--sand);
+}
+
+/* Contenuto menù */
+.menu-page-content {
+  flex: 1;
+  padding: clamp(3rem, 5vw, 6rem) var(--pad);
+}
+
+.menu-page-content-inner {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  columns: 2;
+  column-gap: clamp(3rem, 6vw, 6rem);
+}
+
+.menu-page-footer {
+  margin-top: 4rem;
+}
+
+/* Categoria */
+.menu-cat {
+  break-inside: avoid;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.menu-cat-title {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-style: italic;
+  font-weight: 400;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line-dark);
+  color: var(--ink-deep);
+}
+
+.menu-cat-nota {
+  font-size: 0.68rem;
+  font-style: italic;
+  margin-bottom: 0.6rem;
+  color: var(--sea-mid);
+}
+
+.menu-cat-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+/* Riga singola piatto */
+.menu-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.4rem 0;
+}
+
+.menu-item-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.menu-item-nome {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.menu-item-tag {
+  flex-shrink: 0;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--sea);
+  border-radius: 2px;
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sea);
+  line-height: 1.5;
+}
+
+.menu-item-desc {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--sea-mid);
+  margin-top: 0.1rem;
+}
+
+.menu-item-dots {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--line-dark);
+  margin-bottom: 0.25em;
+}
+
+.menu-item-prezzo {
+  flex-shrink: 0;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
 /* Events */
 .events {
   position: relative;
@@ -2171,6 +2331,11 @@ address {
   :root {
     --pad: 1.25rem;
   }
+
+  .menu-page-content-inner {
+    columns: 1;
+  }
+
 
   .nav-shell {
     min-height: 4.8rem;

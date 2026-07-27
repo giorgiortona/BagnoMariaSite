@@ -4,7 +4,7 @@ import Logo from './Logo.jsx'
 const LINKS = [
   { href: '#spiaggia', label: 'La spiaggia' },
   { href: '#giornata', label: 'La giornata' },
-  { href: '#bar', label: 'Sapori' },
+  { href: '#menu', label: 'Menù' },
   { href: '#eventi', label: 'Eventi' },
   { href: '#contatti', label: 'Dove siamo' },
 ]
