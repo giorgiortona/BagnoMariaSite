@@ -1,16 +1,5 @@
 import VideoLoop from './VideoLoop.jsx'
-
-function SunLines() {
-  return (
-    <svg className="manifesto-sun" viewBox="0 0 420 420" aria-hidden="true">
-      <circle cx="210" cy="210" r="92" />
-      {Array.from({ length: 24 }, (_, index) => {
-        const angle = index * 15
-        return <path key={angle} d="M210 24v58" transform={`rotate(${angle} 210 210)`} />
-      })}
-    </svg>
-  )
-}
+import { SunLines } from './Decor.jsx'
 
 export default function Intro() {
   return (
@@ -23,7 +12,7 @@ export default function Intro() {
             aria-label="La spiaggia di Santa Maria al Bagno ripresa dal drone"
           />
         </div>
-        <SunLines />
+        <SunLines className="manifesto-sun" />
       </div>
 
       <div className="manifesto-copy">

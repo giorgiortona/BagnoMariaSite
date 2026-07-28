@@ -7,7 +7,7 @@ import VideoLoop from './VideoLoop.jsx'
 const gallery = [
   { image: '/media/borgo-dal-mare.webp', alt: 'La cittadina di Santa Maria al Bagno vista dal mare', label: 'La cittadina' },
   { video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp', alt: 'Un momento al bar del lido', label: 'Il bar' },
-  { image: '/media/baia-panorama.webp', alt: 'Panorama della spiaggia di Santa Maria al Bagno', label: 'La spiaggia' },
+  { image: '/media/spiaggia-bagnomaria-galleria.webp', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
   { video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp', alt: 'La cala di acqua cristallina ripresa dal drone', label: 'La cala' },
   { image: '/media/spiaggia-estate.webp', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
 ]

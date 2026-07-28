@@ -12,6 +12,7 @@ const LINKS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [menuActive, setMenuActive] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -25,13 +26,20 @@ export default function Nav() {
     return () => document.body.classList.remove('menu-open')
   }, [open])
 
+  useEffect(() => {
+    const onHashChange = () => setMenuActive(window.location.hash === '#menu')
+    onHashChange()
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
   const close = () => setOpen(false)
 
   return (
-    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
+    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuActive ? 'is-menu-active' : ''} ${open ? 'is-open' : ''}`}>
       <div className="nav-shell">
         <a href="#top" className="nav-brand" aria-label="Bagno Maria — torna all'inizio" onClick={close}>
-          <Logo light={!scrolled || open} />
+          <Logo light={open || (!scrolled && !menuActive)} />
         </a>
 
         <nav className="nav-panel" id="menu-principale" aria-label="Navigazione principale">

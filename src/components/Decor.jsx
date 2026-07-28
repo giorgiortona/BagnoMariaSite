@@ -3,6 +3,19 @@ import { useId } from 'react'
 /* Elementi decorativi stilizzati — mare, sole, tramonto.
    Tutti aria-hidden e pointer-events:none: pura atmosfera. */
 
+/* Sole a raggi usato come firma grafica nella sezione manifesto e nel menù. */
+export function SunLines({ className = '' }) {
+  return (
+    <svg className={className} viewBox="0 0 420 420" aria-hidden="true">
+      <circle cx="210" cy="210" r="92" />
+      {Array.from({ length: 24 }, (_, index) => {
+        const angle = index * 15
+        return <path key={angle} d="M210 24v58" transform={`rotate(${angle} 210 210)`} />
+      })}
+    </svg>
+  )
+}
+
 /* Sole line-art con raggi (ruota dolcemente allo scroll) */
 export function SoleLineArt({ className = '' }) {
   return (
@@ -129,32 +142,39 @@ function OndaPath({ y = 60, amp = 34, fill }) {
   return <path d={d} fill={fill} />
 }
 
+/* Gli stessi quattro strati d'acqua vengono riutilizzati anche nel tramonto
+   del menù, così le due scene marine appartengono allo stesso paesaggio. */
+const SEA_LAYERS = [
+  { fill: '#F6E2D2', y: 46, amp: 26, height: '92%', speed: -5 },
+  { fill: '#CFE6F2', y: 52, amp: 32, height: '72%', speed: 7 },
+  { fill: '#7CC0E4', y: 58, amp: 36, height: '52%', speed: -9 },
+  { fill: '#2E7DA6', y: 64, amp: 30, height: '34%', speed: 12 },
+]
+
+export function SeaLayers({ className = 'wave-layer' }) {
+  return SEA_LAYERS.map((layer) => (
+    <svg
+      key={layer.fill}
+      className={className}
+      style={{ height: layer.height }}
+      data-speed={layer.speed}
+      viewBox="0 0 2880 200"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <OndaPath y={layer.y} amp={layer.amp} fill={layer.fill} />
+    </svg>
+  ))
+}
+
 /* Mare stilizzato di sfondo: strati d'onda che scorrono con lo scroll,
    sole caldo e barca a vela che attraversa la scena. */
 export function MareScena() {
-  /* l'acqua lontana prende la luce del sole basso, quella vicina resta blu */
-  const strati = [
-    { fill: '#F6E2D2', y: 46, amp: 26, height: '92%', speed: -5 },
-    { fill: '#CFE6F2', y: 52, amp: 32, height: '72%', speed: 7 },
-    { fill: '#7CC0E4', y: 58, amp: 36, height: '52%', speed: -9 },
-    { fill: '#2E7DA6', y: 64, amp: 30, height: '34%', speed: 12 },
-  ]
   return (
     <section className="mare-scena" aria-hidden="true">
       <div className="mare-sole" data-sole-parallax />
       <Barca className="mare-barca" />
-      {strati.map((s) => (
-        <svg
-          key={s.fill}
-          className="wave-layer"
-          style={{ height: s.height }}
-          data-speed={s.speed}
-          viewBox="0 0 2880 200"
-          preserveAspectRatio="none"
-        >
-          <OndaPath y={s.y} amp={s.amp} fill={s.fill} />
-        </svg>
-      ))}
+      <SeaLayers />
     </section>
   )
 }

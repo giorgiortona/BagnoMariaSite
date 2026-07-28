@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { LogoMark } from './Logo.jsx'
-import { GrecaBorder, WaveBorder } from './Decor.jsx'
+import { useEffect, useRef, useState } from 'react'
+import { LogoWordmark } from './Logo.jsx'
+import { GrecaBorder, SeaLayers, SunLines, WaveBorder } from './Decor.jsx'
 import Preloader from './Preloader.jsx'
 
 /* ─── Dati menù Bagno Maria (unito con ingredienti) ─── */
@@ -25,7 +25,7 @@ const MENU_DATA = [
   {
     categoria: 'Colazione e Frutta',
     piatti: [
-      { nome: 'Cornetto vuoto vegano', prezzo: '1.80', desc: 'Farciture: Crema pasticcera (no lattosio) · Nocciolata · Frutti di bosco · Albicocca · Pistacchio' },
+      { nome: 'Cornetto vuoto vegano', prezzo: '1.80', desc: 'Farciture: Crema pasticcera (no lattosio) · Nocciolata · Frutti di bosco · Albicocca · Pistacchio', tag: 'vegan' },
       { nome: 'Pasticciotto alla crema', desc: 'Grande 2.00 · Piccolo 1.50', prezzo: '' },
       { nome: 'Ciambella al cioccolato', prezzo: '2.00' },
       { nome: 'Bicchiere mix di frutta fresca', prezzo: '3.00' },
@@ -48,9 +48,9 @@ const MENU_DATA = [
   {
     categoria: 'Le Frise',
     piatti: [
-      { nome: 'La Leccese', desc: 'Pomodorini gialli e rossi, rucola, origano, olio EVO, sale', tag: 'VEG', prezzo: '6.00' },
+      { nome: 'La Leccese', desc: 'Pomodorini gialli e rossi, rucola, origano, olio EVO, sale', tag: 'vegan', prezzo: '6.00' },
       { nome: 'La Campagnola', desc: 'Pomodorini, mozzarella, rucola, origano, cipolla croccante, olio EVO, sale', prezzo: '6.00' },
-      { nome: 'Ortoviola', desc: 'Pomodorini, avocado, cavolo rosso e basilico', tag: 'VEG', prezzo: '6.00' },
+      { nome: 'Ortoviola', desc: 'Pomodorini, avocado, cavolo rosso e basilico', tag: 'vegan', prezzo: '6.00' },
       { nome: 'La Tonnata', desc: 'Pomodorini, tonno, olive nere, grana a scaglie, grattugiata di limone, fiore di cappero, olio EVO', prezzo: '7.00' },
       { nome: 'Fumè', desc: 'Pomodorini, stracciatella, salmone affumicato, pesto di basilico, olio EVO, limone', prezzo: '8.00' },
       { nome: 'Alicrunch', desc: 'Pomodorini gialli, alici, olive nere, cipolla rossa, olio EVO, tarallo sbriciolato', prezzo: '8.00' },
@@ -59,10 +59,10 @@ const MENU_DATA = [
   {
     categoria: 'I Crostoni',
     piatti: [
-      { nome: 'Rustichella', desc: 'Pomodori, basilico, sale e olio EVO', tag: 'VEG', prezzo: '6.00' },
+      { nome: 'Rustichella', desc: 'Pomodori, basilico, sale e olio EVO', tag: 'vegan', prezzo: '6.00' },
       { nome: 'Del Verde', desc: 'Pesto di basilico, mozzarella, pomodori secchi, speck', prezzo: '7.00' },
       { nome: 'Marinaro', desc: 'Formaggio spalmabile, alici, rucola, dressing olio', prezzo: '7.00' },
-      { nome: 'Cremoso', desc: 'Formaggio spalmabile, avocado, pomodori secchi', tag: 'VEG', prezzo: '7.00' },
+      { nome: 'Cremoso', desc: 'Formaggio spalmabile, avocado, pomodori secchi', tag: 'vegetarian', prezzo: '7.00' },
       { nome: 'Grecale', desc: 'Feta, pomodori, patè di olive nere, prosciutto crudo, origano, olio', prezzo: '8.00' },
     ],
   },
@@ -72,8 +72,8 @@ const MENU_DATA = [
       { nome: 'La Cruda', desc: 'Mozzarella, prosciutto crudo, lattuga, pomodoro', prezzo: '6.50' },
       { nome: 'La Spianata', desc: 'Spianata piccante, rucola, provola dolce, cavolo rosso, pomodori secchi', prezzo: '6.50' },
       { nome: 'Punta Secca', desc: 'Bresaola, rucola, Parmigiano Reggiano, pomodoro, limone, glassa aceto balsamico', prezzo: '7.00' },
-      { nome: 'L\'Ortolana', desc: 'Avocado, zucchine condite, lattuga, pomodoro, crema di patate', tag: 'VEG', prezzo: '7.00' },
-      { nome: 'Melanzina', desc: 'Mozzarella, lattuga, pomodoro, melanzane condite', tag: 'VEG', prezzo: '7.00' },
+      { nome: 'L\'Ortolana', desc: 'Avocado, zucchine condite, lattuga, pomodoro, crema di patate', tag: 'vegetarian', prezzo: '7.00' },
+      { nome: 'Melanzina', desc: 'Mozzarella, lattuga, pomodoro, melanzane condite', tag: 'vegetarian', prezzo: '7.00' },
       { nome: 'Salmò', desc: 'Avocado, Philadelphia, salmone, lattuga', prezzo: '7.50' },
     ],
   },
@@ -84,14 +84,14 @@ const MENU_DATA = [
       { nome: 'N2', desc: 'Ciabatta, tonno, provola dolce, capperi', prezzo: '6.00' },
       { nome: 'N3', desc: 'Ciabatta, bresaola, Philadelphia, pomodori secchi e rucola', prezzo: '6.00' },
       { nome: 'N4', desc: 'Puccia, spianata piccante, provola dolce, pomodori secchi, olio', prezzo: '6.00' },
-      { nome: 'N7', desc: 'Puccia, speck, provola dolce, rucola, tarallo sbriciolato, olio EVO', prezzo: '6.00' },
-      { nome: 'N10', desc: 'Ciabatta cruda, rucola, grana e lime', tag: 'VEG', prezzo: '6.00' },
-      { nome: 'N11', desc: 'Panino, pomodoro, mozzarella e origano', tag: 'VEG', prezzo: '6.00' },
-      { nome: 'N12', desc: 'Puccia, insalata, zucchine condite, pomodori secchi e rucola', tag: 'VEG', prezzo: '6.00' },
-      { nome: 'N6', desc: 'Puccia, crema di radicchio, prosciutto cotto, mozzarella, pomodorini, zucchine secche sott\'olio', prezzo: '6.50' },
       { nome: 'N5', desc: 'Puccia, mortadella, stracciatella, pesto di pistacchio', prezzo: '7.00' },
+      { nome: 'N6', desc: 'Puccia, crema di radicchio, prosciutto cotto, mozzarella, pomodorini, zucchine secche sott\'olio', prezzo: '6.50' },
+      { nome: 'N7', desc: 'Puccia, speck, provola dolce, rucola, tarallo sbriciolato, olio EVO', prezzo: '6.00' },
       { nome: 'N8', desc: 'Pane multicereali, alici, stracciatella, rucola, pomodorini gialli, olio EVO', prezzo: '8.00' },
       { nome: 'N9', desc: 'Pane multicereali, salmone affumicato, stracciatella, rucola, tarallo sbriciolato, pepe rosa, olio EVO', prezzo: '8.00' },
+      { nome: 'N10', desc: 'Ciabatta cruda, rucola, grana e lime', tag: 'vegetarian', prezzo: '6.00' },
+      { nome: 'N11', desc: 'Panino, pomodoro, mozzarella e origano', tag: 'vegetarian', prezzo: '6.00' },
+      { nome: 'N12', desc: 'Puccia, insalata, zucchine condite, pomodori secchi e rucola', tag: 'vegan', prezzo: '6.00' },
     ],
   },
   {
@@ -100,13 +100,13 @@ const MENU_DATA = [
       { nome: 'Pinolissima', desc: 'Iceberg, tonno, pomodorini, grana, pinoli, rucola', prezzo: '8.00' },
       { nome: 'Caesar Beach', desc: 'Iceberg, radicchio, crudo, grana, salsa caesar, scaglie grana', prezzo: '8.00' },
       { nome: 'Tarallina', desc: 'Iceberg, rucola, pomodorini gialli, tarallo sbriciolato, tonno, olive nere, limone grattugiato', prezzo: '8.00' },
-      { nome: 'Mediterranea', desc: 'Iceberg, feta, pomodori, olive nere, rucola, julienne di carota e peperone, olio EVO', tag: 'VEG', prezzo: '8.00' },
-      { nome: 'Mix Orto', desc: 'Iceberg, cavolo rosso, pomodori, mais, pinoli e dressing glassa di aceto balsamico', tag: 'VEG', prezzo: '8.00' },
+      { nome: 'Mediterranea', desc: 'Iceberg, feta, pomodori, olive nere, rucola, julienne di carota e peperone, olio EVO', tag: 'vegetarian', prezzo: '8.00' },
+      { nome: 'Mix Orto', desc: 'Iceberg, cavolo rosso, pomodori, mais, pinoli e dressing glassa di aceto balsamico', tag: 'vegan', prezzo: '8.00' },
       { nome: 'Bosco Rosso', desc: 'Cavolo rosso, feta, speck a cubetti, noci, dressing glassa aceto balsamico', prezzo: '9.00' },
       { nome: 'Nordica', desc: 'Iceberg, salmone affumicato, stracciatella, tarallo sbriciolato, olive nere, pomodoro giallo', prezzo: '9.00' },
       { nome: 'Insalata di mare', desc: 'Insalata di mare, sedano, carota, prezzemolo tritato, succo di limone, olio EVO', prezzo: '9.00' },
-      { nome: 'Avonoci', desc: 'Iceberg, avocado, pomodori secchi, noci, feta, salsa caesar', tag: 'VEG', prezzo: '9.00' },
-      { nome: 'Insalata di farro', desc: 'Farro cotto a vapore, olio EVO e rucola fresca (componibile con ingredienti da menù, max 5 a scelta)', tag: 'VEG', prezzo: '9.00' },
+      { nome: 'Avonoci', desc: 'Iceberg, avocado, pomodori secchi, noci, feta, salsa caesar', tag: 'vegetarian', prezzo: '9.00' },
+      { nome: 'Insalata di farro', desc: 'Farro cotto a vapore, olio EVO e rucola fresca (componibile con ingredienti da menù, max 5 a scelta)', tag: 'vegan', prezzo: '9.00' },
     ],
   },
   {
@@ -226,6 +226,51 @@ const MENU_DATA = [
   },
 ]
 
+const DIET_LABELS = {
+  vegetarian: 'Vegetariano',
+  vegan: 'Vegano',
+}
+
+const DIET_ICONS = {
+  vegetarian: '/icons/diet-vegetarian.png',
+  vegan: '/icons/diet-vegan.png',
+}
+
+const SUNSET_STOPS = [
+  { at: 0, color: [7, 84, 125] },
+  { at: 0.35, color: [246, 194, 68] },
+  { at: 0.72, color: [238, 138, 94] },
+  { at: 1, color: [205, 67, 61] },
+]
+
+function getSunsetColor(progress) {
+  const upperIndex = SUNSET_STOPS.findIndex((stop) => stop.at >= progress)
+  if (upperIndex <= 0) return SUNSET_STOPS[0].color
+
+  const lower = SUNSET_STOPS[upperIndex - 1]
+  const upper = SUNSET_STOPS[upperIndex]
+  const localProgress = (progress - lower.at) / (upper.at - lower.at)
+
+  return lower.color.map((channel, index) => (
+    Math.round(channel + ((upper.color[index] - channel) * localProgress))
+  ))
+}
+
+function DietIcon({ type }) {
+  const label = DIET_LABELS[type]
+
+  return (
+    <span
+      className={`menu-diet-icon menu-diet-icon-${type}`}
+      role="img"
+      aria-label={label}
+      title={label}
+    >
+      <img src={DIET_ICONS[type]} alt="" aria-hidden="true" />
+    </span>
+  )
+}
+
 /* ─── Componente riga menù ─── */
 function MenuItem({ nome, desc, prezzo, tag }) {
   return (
@@ -233,7 +278,7 @@ function MenuItem({ nome, desc, prezzo, tag }) {
       <div className="menu-item-left">
         <span className="menu-item-nome">
           {nome}
-          {tag && <span className="menu-item-tag">{tag}</span>}
+          {tag && <DietIcon type={tag} />}
         </span>
         {desc && <span className="menu-item-desc">{desc}</span>}
       </div>
@@ -266,6 +311,7 @@ function MenuCategoria({ categoria, piatti, nota }) {
 export default function Menu() {
   const [aperto, setAperto] = useState(false)
   const [session, setSession] = useState(0) // Usato per re-triggerare il preloader
+  const pageRef = useRef(null)
 
   useEffect(() => {
     const checkHash = () => {
@@ -293,6 +339,64 @@ export default function Menu() {
     }
   }, [aperto])
 
+  useEffect(() => {
+    if (!aperto || !pageRef.current) return undefined
+
+    const page = pageRef.current
+    let frame = 0
+    let active = true
+
+    const updateSun = () => {
+      frame = 0
+
+      const emblem = page.querySelector('.menu-page-emblem-identity')
+      const horizon = page.querySelector('.menu-page-sea-horizon')
+      if (!emblem || !horizon) return
+
+      const maxScroll = Math.max(1, page.scrollHeight - page.clientHeight)
+      const progress = Math.min(1, Math.max(0, page.scrollTop / maxScroll))
+      const pageRect = page.getBoundingClientRect()
+      const emblemRect = emblem.getBoundingClientRect()
+      const horizonRect = horizon.getBoundingClientRect()
+      const emblemCenterAtTop = emblemRect.top - pageRect.top + page.scrollTop + (emblemRect.height / 2)
+      const horizonAtEnd = horizonRect.top - pageRect.top + page.scrollTop - maxScroll
+      const sunY = emblemCenterAtTop + ((horizonAtEnd - emblemCenterAtTop) * progress)
+      const compact = page.clientWidth <= 880
+      const sunsetProgress = Math.min(1, Math.max(0, (progress - 0.82) / 0.18))
+      const [red, green, blue] = getSunsetColor(sunsetProgress)
+
+      page.style.setProperty('--menu-sun-y', `${sunY}px`)
+      page.style.setProperty('--menu-sun-opacity', String((compact ? 0.12 : 0.2) + (progress * (compact ? 0.08 : 0.12))))
+      page.style.setProperty('--menu-sun-rotation', `${progress * 36}deg`)
+      page.style.setProperty('--menu-sun-color', `rgb(${red} ${green} ${blue})`)
+      page.style.setProperty('--menu-sun-fill', `rgb(246 194 68 / ${sunsetProgress * 0.18})`)
+      page.style.setProperty('--menu-sun-glow', String(sunsetProgress * 0.62))
+      page.style.setProperty('--menu-sunset-progress', String(sunsetProgress))
+    }
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateSun)
+    }
+
+    requestUpdate()
+    page.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    const resizeObserver = typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(requestUpdate)
+      : null
+    resizeObserver?.observe(page)
+    document.fonts?.ready.then(() => { if (active) requestUpdate() })
+
+    return () => {
+      active = false
+      page.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      resizeObserver?.disconnect()
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [aperto])
+
   const chiudi = () => {
     window.location.hash = '#bar'
   }
@@ -301,6 +405,7 @@ export default function Menu() {
 
   return (
     <div
+      ref={pageRef}
       className="menu-page"
       role="dialog"
       aria-modal="true"
@@ -310,30 +415,36 @@ export default function Menu() {
       {/* Mostra il preloader all'apertura, usando session come key per rimontarlo */}
       <Preloader key={session} onDone={() => {}} />
 
+      <div className="menu-page-backdrop" aria-hidden="true">
+        <SunLines className="menu-page-travelling-sun" />
+        <span className="menu-page-side-pattern menu-page-side-pattern-left" />
+        <span className="menu-page-side-pattern menu-page-side-pattern-right" />
+      </div>
+
       <header className="menu-page-header">
-        <GrecaBorder className="site-greca site-greca-sky" />
+        <GrecaBorder className="site-greca menu-page-greca" />
         <div className="menu-page-header-inner">
-          <div className="menu-page-title">
-            <LogoMark size={36} />
-            <h2>
-              Il nostro
-              <br />
-              <em>menù.</em>
-            </h2>
+          <div className="menu-page-emblem" aria-hidden="true">
+            <span className="menu-page-emblem-line menu-page-emblem-line-left" />
+            <span className="menu-page-emblem-identity">
+              <LogoWordmark className="menu-page-emblem-wordmark" label="" />
+            </span>
+            <span className="menu-page-emblem-line menu-page-emblem-line-right" />
           </div>
-          <button
-            type="button"
-            className="booking-close menu-page-close"
-            onClick={chiudi}
-            aria-label="Chiudi il menù"
-          >
-            ✕
-          </button>
         </div>
+        <WaveBorder className="site-greca menu-page-header-wave" />
       </header>
 
       <div className="menu-page-content">
         <div className="menu-page-content-inner">
+          <div className="menu-diet-legend" aria-label="Legenda alimentare">
+            {Object.entries(DIET_LABELS).map(([type, label]) => (
+              <span className="menu-diet-legend-item" key={type}>
+                <DietIcon type={type} />
+                {type === 'vegetarian' && <span>{label}</span>}
+              </span>
+            ))}
+          </div>
           {MENU_DATA.map((cat, i) => (
             <MenuCategoria key={`${cat.categoria}-${i}`} {...cat} />
           ))}
@@ -341,7 +452,10 @@ export default function Menu() {
       </div>
 
       <div className="menu-page-footer">
-        <WaveBorder className="site-greca site-greca-sky" />
+        <div className="menu-page-sea" aria-hidden="true">
+          <span className="menu-page-sea-horizon" />
+          <SeaLayers className="menu-page-sea-wave-layer" />
+        </div>
       </div>
     </div>
   )
