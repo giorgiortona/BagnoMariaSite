@@ -5,11 +5,10 @@ import VideoLoop from './VideoLoop.jsx'
    video, girati col drone in verticale. Le altre (item-1 orizzontale,
    item-3) restano foto landscape, che le riempiono senza sgranarsi. */
 const gallery = [
-  { image: '/media/borgo-dal-mare.webp', alt: 'La cittadina di Santa Maria al Bagno vista dal mare', label: 'La cittadina' },
   { video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp', alt: 'Un momento al bar del lido', label: 'Il bar' },
-  { image: '/media/spiaggia-bagnomaria-galleria.webp', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
+  { image: '/media/la-spiaggia.jpeg', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
   { video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp', alt: 'La cala di acqua cristallina ripresa dal drone', label: 'La cala' },
-  { image: '/media/spiaggia-estate.webp', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
+  { image: '/media/estate.jpeg', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
 ]
 
 export default function Gallery() {
