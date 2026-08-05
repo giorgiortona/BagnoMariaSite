@@ -5,10 +5,10 @@ import VideoLoop from './VideoLoop.jsx'
    video, girati col drone in verticale. Le altre (item-1 orizzontale,
    item-3) restano foto landscape, che le riempiono senza sgranarsi. */
 const gallery = [
-  { video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp', alt: 'Un momento al bar del lido', label: 'Il bar' },
-  { image: '/media/la-spiaggia.jpeg', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
-  { video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp', alt: 'La cala di acqua cristallina ripresa dal drone', label: 'La cala' },
-  { image: '/media/estate.jpeg', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
+  { layout: 2, video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp', alt: 'Un momento al bar del lido', label: 'Il bar' },
+  { layout: 1, image: '/media/la-spiaggia.jpeg', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
+  { layout: 2, video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp', alt: 'La cala di acqua cristallina ripresa dal drone', label: 'La cala' },
+  { layout: 3, image: '/media/estate.jpeg', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
 ]
 
 export default function Gallery() {
@@ -98,7 +98,7 @@ export default function Gallery() {
         data-lenis-prevent
       >
         {gallery.map((item, index) => (
-          <figure className={`gallery-item gallery-item-${(index % 3) + 1}`} key={item.label}>
+          <figure className={`gallery-item gallery-item-${item.layout}`} key={item.label}>
             <div className="gallery-media">
               {item.video ? (
                 <VideoLoop src={item.video} poster={item.poster} aria-label={item.alt} />
