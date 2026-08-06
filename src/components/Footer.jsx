@@ -1,12 +1,14 @@
 import Logo, { LogoWordmark } from './Logo.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 export default function Footer() {
+  const { copy } = useLanguage()
   return (
     <footer className="footer">
       <div className="footer-sun" aria-hidden="true" />
       <div className="footer-top">
-        <a href="#top" aria-label="Bagno Maria — torna all'inizio"><Logo light /></a>
-        <a className="footer-up" href="#top">Torna su ↑</a>
+        <a href="#top" aria-label={copy.common.backToTop}><Logo light /></a>
+        <a className="footer-up" href="#top">{copy.footer.up}</a>
       </div>
 
       {/* Il marchio a tutta larghezza. Decorativo: il nome è già annunciato

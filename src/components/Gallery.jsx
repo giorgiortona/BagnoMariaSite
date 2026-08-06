@@ -1,17 +1,19 @@
 import { useEffect, useRef } from 'react'
 import VideoLoop from './VideoLoop.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 /* Le cartoline in posizione 2ª e 5ª (item-2) sono verticali: lì vanno i
    video, girati col drone in verticale. Le altre (item-1 orizzontale,
    item-3) restano foto landscape, che le riempiono senza sgranarsi. */
 const gallery = [
-  { layout: 2, video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp', alt: 'Un momento al bar del lido', label: 'Il bar' },
-  { layout: 1, image: '/media/la-spiaggia.jpeg', alt: 'La spiaggia di Bagno Maria affacciata sul borgo di Santa Maria al Bagno', label: 'La spiaggia' },
-  { layout: 2, video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp', alt: 'La cala di acqua cristallina ripresa dal drone', label: 'La cala' },
-  { layout: 3, image: '/media/estate.jpeg', alt: 'La spiaggia in una giornata d’estate', label: 'Estate' },
+  { layout: 2, video: '/media/bar-caffe.mp4', poster: '/media/bar-caffe-poster.webp' },
+  { layout: 1, image: '/media/la-spiaggia.jpeg' },
+  { layout: 2, video: '/media/borgo-drone.mp4', poster: '/media/borgo-drone-poster.webp' },
+  { layout: 3, image: '/media/estate.jpeg' },
 ]
 
 export default function Gallery() {
+  const { copy } = useLanguage()
   const trackRef = useRef(null)
 
   useEffect(() => {
@@ -87,28 +89,31 @@ export default function Gallery() {
   return (
     <section className="gallery" id="galleria">
       <header className="gallery-head section-shell">
-        <h2 data-reveal>Un po’ di Salento<br />da portare <em>con te.</em></h2>
-        <p data-reveal>Trascina per attraversare la nostra estate.</p>
+        <h2 data-reveal>{copy.gallery.heading}</h2>
+        <p data-reveal>{copy.gallery.lead}</p>
       </header>
 
       <div
         className="gallery-track"
         ref={trackRef}
-        aria-label="Galleria fotografica"
+        aria-label={copy.gallery.aria}
         data-lenis-prevent
       >
-        {gallery.map((item, index) => (
-          <figure className={`gallery-item gallery-item-${item.layout}`} key={item.label}>
+        {gallery.map((item, index) => {
+          const [label, alt] = copy.gallery.items[index]
+          return (
+          <figure className={`gallery-item gallery-item-${item.layout}`} key={item.image || item.video}>
             <div className="gallery-media">
               {item.video ? (
-                <VideoLoop src={item.video} poster={item.poster} aria-label={item.alt} />
+                <VideoLoop src={item.video} poster={item.poster} aria-label={alt} />
               ) : (
-                <img src={item.image} alt={item.alt} loading="lazy" draggable="false" />
+                <img src={item.image} alt={alt} loading="lazy" draggable="false" />
               )}
             </div>
-            <figcaption><span>0{index + 1}</span>{item.label}</figcaption>
+            <figcaption><span>0{index + 1}</span>{label}</figcaption>
           </figure>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

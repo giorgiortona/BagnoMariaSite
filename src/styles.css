@@ -100,6 +100,18 @@ address {
   font-style: normal;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 .skip-link {
   position: fixed;
   z-index: 10000;
@@ -470,6 +482,106 @@ address {
   position: relative;
   z-index: 2;
   justify-self: start;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: clamp(0.7rem, 1.3vw, 1.25rem);
+}
+
+.language-selector {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+}
+
+.language-selector-trigger {
+  display: flex;
+  min-width: 7.8rem;
+  align-items: center;
+  padding: 0.58rem 0.72rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: 700 0.62rem/1 var(--sans);
+  gap: 0.48rem;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+
+.language-selector-trigger:focus-visible,
+.language-selector-option:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.language-selector-flag {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.language-selector-chevron {
+  margin-left: auto;
+  transform: translateY(-0.08rem);
+  font-size: 0.85rem;
+  transition: transform 220ms ease;
+}
+
+.language-selector.is-open .language-selector-chevron {
+  transform: translateY(0.08rem) rotate(180deg);
+}
+
+.language-selector-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 0.55rem);
+  right: 0;
+  display: grid;
+  width: max-content;
+  min-width: 10.5rem;
+  padding: 0.38rem;
+  border: 1px solid rgba(7, 84, 125, 0.18);
+  border-radius: 0.9rem;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1rem 2.6rem rgba(3, 59, 92, 0.18);
+  gap: 0.14rem;
+}
+
+.language-selector-option {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  padding: 0.72rem 0.7rem;
+  border: 0;
+  border-radius: 0.58rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: 700 0.68rem/1 var(--sans);
+  grid-template-columns: 1.45rem 1fr 0.8rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.language-selector-option:hover,
+.language-selector-option:focus-visible,
+.language-selector-option[aria-selected='true'] {
+  background: rgba(97, 189, 225, 0.16);
+}
+
+.language-selector-check {
+  color: var(--sea);
+  text-align: right;
+}
+
+.nav-language-mobile {
+  display: none;
 }
 
 .nav-panel ul {
@@ -1249,6 +1361,18 @@ address {
   overscroll-behavior: contain;
 }
 
+/* Sfondo: fotogramma del fondale marino (come la prima schermata del sito),
+   con un velo chiaro sopra per tenere leggibile il menù. */
+.menu-page-fondale {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(251, 253, 254, 0.8), rgba(251, 253, 254, 0.86)),
+    url('/media/menu-fondale.webp') center / cover no-repeat;
+}
+
 .menu-page-backdrop {
   position: fixed;
   z-index: 0;
@@ -1256,6 +1380,39 @@ address {
   overflow: hidden;
   background: linear-gradient(90deg, rgba(203, 238, 250, 0.13), transparent 18%, transparent 82%, rgba(203, 238, 250, 0.13));
   pointer-events: none;
+}
+
+/* Banco di pesci che nuota piano sullo sfondo */
+.menu-page-banco {
+  position: absolute;
+  inset: 0;
+}
+
+.menu-page-banco-basso {
+  translate: 0 46vh;
+}
+
+.decor-pesce {
+  position: absolute;
+  width: clamp(1.6rem, 3vw, 2.6rem);
+  height: auto;
+  color: #2e7da6;
+  opacity: 0.42;
+  animation: menu-nuota 7s ease-in-out infinite;
+}
+
+@keyframes menu-nuota {
+  50% { translate: 18px -6px; }
+}
+
+.menu-page-banco .pesce-1 { left: 9%;  top: 9vh;  opacity: 0.5; }
+.menu-page-banco .pesce-2 { left: 24%; top: 20vh; width: clamp(1.2rem, 2.2vw, 2rem); transform: scaleX(-1); animation-duration: 8.5s; animation-delay: -2s; }
+.menu-page-banco .pesce-3 { left: 68%; top: 7vh;  animation-duration: 6.4s; animation-delay: -1s; }
+.menu-page-banco .pesce-4 { left: 83%; top: 21vh; width: clamp(1.3rem, 2.4vw, 2.1rem); transform: scaleX(-1); opacity: 0.5; animation-duration: 7.6s; animation-delay: -3s; }
+.menu-page-banco .pesce-5 { left: 47%; top: 27vh; width: clamp(1.1rem, 2vw, 1.7rem); opacity: 0.34; animation-duration: 9s; animation-delay: -1.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .decor-pesce { animation: none; }
 }
 
 .menu-page-backdrop::before {
@@ -1418,6 +1575,12 @@ address {
   margin: 0 auto;
   columns: 2;
   column-gap: clamp(3rem, 6vw, 6rem);
+  /* foglio bianco dietro le voci: il fondale resta visibile intorno,
+     ma le scritte non si confondono più con l'acqua */
+  background: rgba(255, 255, 255, 0.92);
+  padding: clamp(1.6rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.75rem);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem rgba(3, 31, 51, 0.14);
 }
 
 .menu-diet-legend {
@@ -1488,13 +1651,16 @@ address {
   gap: 0.8rem;
   grid-template-columns: minmax(1.25rem, 1fr) auto minmax(1.25rem, 1fr);
   font-family: var(--display);
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-size: clamp(1.7rem, 2.5vw, 2.15rem);
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
   padding-bottom: 0.55rem;
   margin-bottom: 0.8rem;
   color: var(--ink-deep);
   text-align: center;
+  text-wrap: balance;
 }
 
 .menu-cat-title::before,
@@ -1539,8 +1705,11 @@ address {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-family: var(--display);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
 }
 
 .menu-diet-icon {
@@ -2563,6 +2732,10 @@ address {
     grid-template-columns: 1fr auto;
   }
 
+  .nav-language-desktop {
+    display: none;
+  }
+
   .nav-book {
     display: none;
   }
@@ -2693,6 +2866,52 @@ address {
     letter-spacing: 0.1em;
     line-height: 1;
     text-transform: uppercase;
+  }
+
+  .nav-language-mobile {
+    display: block;
+    width: 100%;
+    margin-block: 1.25rem;
+  }
+
+  .nav-language-mobile .language-selector-trigger {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-color: rgba(255, 255, 255, 0.35);
+    border-radius: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-language-mobile .language-selector-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.45rem;
+    padding: 0.25rem;
+    border-color: rgba(255, 255, 255, 0.22);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--stone);
+    box-shadow: none;
+  }
+
+  .nav-language-mobile .language-selector-option {
+    padding: 0.82rem 0.75rem;
+    border-radius: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-language-mobile .language-selector-option:hover,
+  .nav-language-mobile .language-selector-option:focus-visible,
+  .nav-language-mobile .language-selector-option[aria-selected='true'] {
+    background: rgba(255, 255, 255, 0.11);
+  }
+
+  .nav-language-mobile .language-selector-check {
+    color: var(--sea-light);
   }
 
   .hero {
@@ -3113,21 +3332,51 @@ address {
   }
 
   .prenota-orbit {
-    top: -12rem;
-    right: -15rem;
+    top: -4rem;
+    right: -2rem;
+    width: 20rem;
+  }
+
+  .prenota-orbit::before {
+    inset: 2.4rem;
+  }
+
+  .prenota-orbit::after {
+    inset: 5.2rem;
+  }
+
+  .prenota-orbit span {
+    width: 9rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.11em;
+    line-height: 1.35;
+    text-align: center;
   }
 
   .prenota-cal {
-    padding: 0.7rem;
-    box-shadow: 0.65rem 0.65rem 0 var(--ink);
+    width: 100%;
+    margin-inline: auto;
+    padding: 0.75rem;
+    box-shadow: 0 0.65rem 0 var(--ink);
+  }
+
+  .cal-head {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+  }
+
+  .cal-nav {
+    width: 2.5rem;
+  }
+
+  .cal-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
   .cal-day {
-    /* Sotto i ~370px sette colonne quadrate scendono a 37px: troppo poco per
-       il dito. `aspect-ratio` va spento, altrimenti l'altezza imposta gonfia
-       anche la larghezza e la griglia sfora. */
-    aspect-ratio: auto;
-    min-height: 2.75rem;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1;
     font-size: 0.68rem;
   }
 

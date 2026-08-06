@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import Logo from './Logo.jsx'
+import LanguageSelector from './LanguageSelector.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 const LINKS = [
-  { href: '#spiaggia', label: 'La spiaggia' },
-  { href: '#giornata', label: 'La giornata' },
-  { href: '#menu', label: 'Menù' },
-  { href: '#eventi', label: 'Eventi' },
-  { href: '#contatti', label: 'Dove siamo' },
+  '#spiaggia', '#giornata', '#menu', '#eventi', '#contatti',
 ]
 
 export default function Nav() {
+  const { copy } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [menuActive, setMenuActive] = useState(false)
@@ -38,43 +37,47 @@ export default function Nav() {
   return (
     <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuActive ? 'is-menu-active' : ''} ${open ? 'is-open' : ''}`}>
       <div className="nav-shell">
-        <a href="#top" className="nav-brand" aria-label="Bagno Maria — torna all'inizio" onClick={close}>
+        <a href="#top" className="nav-brand" aria-label={copy.common.backToTop} onClick={close}>
           <Logo light={open || (!scrolled && !menuActive)} />
         </a>
 
-        <nav className="nav-panel" id="menu-principale" aria-label="Navigazione principale">
+        <nav className="nav-panel" id="menu-principale" aria-label={copy.nav.aria}>
           <ul>
-            {LINKS.map((link, index) => (
-              <li key={link.href}>
+            {LINKS.map((href, index) => (
+              <li key={href}>
                 <span aria-hidden="true">0{index + 1}</span>
-                <a href={link.href} onClick={close}>{link.label}</a>
+                <a href={href} onClick={close}>{copy.nav.links[index]}</a>
               </li>
             ))}
           </ul>
           <a className="nav-panel-book" href="#prenota" onClick={close}>
-            Prenota il tuo posto <span aria-hidden="true">↗</span>
+            {copy.nav.bookLong} <span aria-hidden="true">↗</span>
           </a>
+          <LanguageSelector className="nav-language-mobile" onChange={close} />
           <div className="nav-panel-meta">
             <span>40°07′49″ N</span>
-            <span>Costa ionica · Puglia</span>
+            <span>{copy.nav.coast}</span>
           </div>
         </nav>
 
-        <a className="nav-book" href="#prenota" onClick={close}>
-          Prenota <span aria-hidden="true">↗</span>
-        </a>
+        <div className="nav-actions">
+          <LanguageSelector className="nav-language-desktop" />
+          <a className="nav-book" href="#prenota" onClick={close}>
+            {copy.nav.book} <span aria-hidden="true">↗</span>
+          </a>
 
-        <button
-          type="button"
-          className="nav-toggle"
-          onClick={() => setOpen((value) => !value)}
-          aria-label={open ? 'Chiudi menu' : 'Apri menu'}
-          aria-expanded={open}
-          aria-controls="menu-principale"
-        >
-          <span />
-          <span />
-        </button>
+          <button
+            type="button"
+            className="nav-toggle"
+            onClick={() => setOpen((value) => !value)}
+            aria-label={open ? copy.nav.close : copy.nav.open}
+            aria-expanded={open}
+            aria-controls="menu-principale"
+          >
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
     </header>
   )

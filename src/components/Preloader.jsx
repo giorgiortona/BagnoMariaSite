@@ -3,8 +3,10 @@ import gsap from 'gsap'
 import { GrecaBorder, WaveBorder } from './Decor.jsx'
 import { LogoWordmark } from './Logo.jsx'
 import { motionDisabled } from '../lib/motion.js'
+import { useLanguage } from '../i18n.jsx'
 
 export default function Preloader({ onDone }) {
+  const { copy } = useLanguage()
   const rootRef = useRef(null)
   const counterRef = useRef(null)
   const doneRef = useRef(onDone)
@@ -78,10 +80,10 @@ export default function Preloader({ onDone }) {
         <LogoWordmark className="preloader-logo" outlined openDelay={1350} />
         <div className="preloader-loading">
           <div className="preloader-bar"><span className="preloader-bar-fill" /></div>
-          <span>Loading mare&hellip;</span>
+          <span>{copy.preloader.loading}</span>
           <b ref={counterRef}>000</b>
         </div>
-        <p>Santa Maria al Bagno · costa ionica</p>
+        <p>{copy.preloader.coast}</p>
       </div>
       <WaveBorder className="preloader-frame preloader-frame-bottom" />
     </div>

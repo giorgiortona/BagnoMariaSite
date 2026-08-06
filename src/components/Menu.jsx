@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { LogoWordmark } from './Logo.jsx'
-import { GrecaBorder, SeaLayers, SunLines, WaveBorder } from './Decor.jsx'
+import { BancoPesci, GrecaBorder, SeaLayers, SunLines, WaveBorder } from './Decor.jsx'
 import Preloader from './Preloader.jsx'
+import { useLanguage } from '../i18n.jsx'
+import { localizeMenuData } from '../menuTranslations.js'
 
 /* ─── Dati menù Bagno Maria (unito con ingredienti) ─── */
 const MENU_DATA = [
@@ -226,11 +228,6 @@ const MENU_DATA = [
   },
 ]
 
-const DIET_LABELS = {
-  vegetarian: 'Vegetariano',
-  vegan: 'Vegano',
-}
-
 const DIET_ICONS = {
   vegetarian: '/icons/diet-vegetarian.png',
   vegan: '/icons/diet-vegan.png',
@@ -256,9 +253,7 @@ function getSunsetColor(progress) {
   ))
 }
 
-function DietIcon({ type }) {
-  const label = DIET_LABELS[type]
-
+function DietIcon({ type, label }) {
   return (
     <span
       className={`menu-diet-icon menu-diet-icon-${type}`}
@@ -272,13 +267,13 @@ function DietIcon({ type }) {
 }
 
 /* ─── Componente riga menù ─── */
-function MenuItem({ nome, desc, prezzo, tag }) {
+function MenuItem({ nome, desc, prezzo, tag, dietLabels }) {
   return (
     <div className="menu-item">
       <div className="menu-item-left">
         <span className="menu-item-nome">
           {nome}
-          {tag && <DietIcon type={tag} />}
+          {tag && <DietIcon type={tag} label={dietLabels[tag]} />}
         </span>
         {desc && <span className="menu-item-desc">{desc}</span>}
       </div>
@@ -293,14 +288,14 @@ function MenuItem({ nome, desc, prezzo, tag }) {
 }
 
 /* ─── Sezione con categorie ─── */
-function MenuCategoria({ categoria, piatti, nota }) {
+function MenuCategoria({ categoria, piatti, nota, dietLabels }) {
   return (
     <div className="menu-cat">
       <h3 className="menu-cat-title">{categoria}</h3>
       {nota && <p className="menu-cat-nota">{nota}</p>}
       <div className="menu-cat-items">
         {piatti.map((p, i) => (
-          <MenuItem key={`${p.nome}-${i}`} {...p} />
+          <MenuItem key={`${p.nome}-${i}`} {...p} dietLabels={dietLabels} />
         ))}
       </div>
     </div>
@@ -309,9 +304,15 @@ function MenuCategoria({ categoria, piatti, nota }) {
 
 /* ─── Interfaccia Menù a tutto schermo ─── */
 export default function Menu() {
+  const { language, copy } = useLanguage()
   const [aperto, setAperto] = useState(false)
   const [session, setSession] = useState(0) // Usato per re-triggerare il preloader
   const pageRef = useRef(null)
+  const localizedMenu = useMemo(() => localizeMenuData(MENU_DATA, language), [language])
+  const dietLabels = useMemo(() => ({
+    vegetarian: copy.menu.vegetarian,
+    vegan: copy.menu.vegan,
+  }), [copy])
 
   useEffect(() => {
     const checkHash = () => {
@@ -409,16 +410,20 @@ export default function Menu() {
       className="menu-page"
       role="dialog"
       aria-modal="true"
-      aria-label="Menù completo Bagno Maria"
+      aria-label={copy.menu.aria}
       data-lenis-prevent
     >
       {/* Mostra il preloader all'apertura, usando session come key per rimontarlo */}
       <Preloader key={session} onDone={() => {}} />
 
+      <div className="menu-page-fondale" aria-hidden="true" />
+
       <div className="menu-page-backdrop" aria-hidden="true">
         <SunLines className="menu-page-travelling-sun" />
         <span className="menu-page-side-pattern menu-page-side-pattern-left" />
         <span className="menu-page-side-pattern menu-page-side-pattern-right" />
+        <BancoPesci className="menu-page-banco menu-page-banco-alto" />
+        <BancoPesci className="menu-page-banco menu-page-banco-basso" />
       </div>
 
       <header className="menu-page-header">
@@ -437,16 +442,16 @@ export default function Menu() {
 
       <div className="menu-page-content">
         <div className="menu-page-content-inner">
-          <div className="menu-diet-legend" aria-label="Legenda alimentare">
-            {Object.entries(DIET_LABELS).map(([type, label]) => (
+          <div className="menu-diet-legend" aria-label={copy.menu.legend}>
+            {Object.entries(dietLabels).map(([type, label]) => (
               <span className="menu-diet-legend-item" key={type}>
-                <DietIcon type={type} />
+                <DietIcon type={type} label={label} />
                 {type === 'vegetarian' && <span>{label}</span>}
               </span>
             ))}
           </div>
-          {MENU_DATA.map((cat, i) => (
-            <MenuCategoria key={`${cat.categoria}-${i}`} {...cat} />
+          {localizedMenu.map((cat, i) => (
+            <MenuCategoria key={`${cat.categoria}-${i}`} {...cat} dietLabels={dietLabels} />
           ))}
         </div>
       </div>

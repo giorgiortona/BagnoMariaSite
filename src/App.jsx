@@ -17,10 +17,12 @@ import Contatti from './components/Contatti.jsx'
 import Footer from './components/Footer.jsx'
 import { GrecaBorder, MareScena, WaveBorder } from './components/Decor.jsx'
 import { motionDisabled } from './lib/motion.js'
+import { useLanguage } from './i18n.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
+  const { copy, language } = useLanguage()
   const [ready, setReady] = useState(false)
   const mainRef = useRef(null)
 
@@ -175,15 +177,23 @@ export default function App() {
     }
   }, [ready])
 
+  useEffect(() => {
+    if (!ready) return undefined
+    const frame = window.requestAnimationFrame(() => ScrollTrigger.refresh())
+    return () => window.cancelAnimationFrame(frame)
+  }, [language, ready])
+
   return (
     <>
-      <a className="skip-link" href="#contenuto">Vai al contenuto</a>
-      <Preloader onDone={() => setReady(true)} />
+      <a className="skip-link" href="#contenuto">{copy.common.skip}</a>
+      <Preloader key={language} onDone={() => setReady(true)} />
       <Nav />
       <main id="contenuto" ref={mainRef}>
         <Hero ready={ready} />
         <GrecaBorder className="site-greca site-greca-white" />
         <Intro />
+        <GrecaBorder className="site-greca site-greca-white" />
+        <Prenota />
         <Spiaggia />
         <WaveBorder className="site-greca site-greca-sky" />
         <Bar />
@@ -191,8 +201,6 @@ export default function App() {
         <Eventi />
         <Gallery />
         <MareScena />
-        <GrecaBorder className="site-greca site-greca-white" />
-        <Prenota />
         <Contatti />
       </main>
       <Footer />

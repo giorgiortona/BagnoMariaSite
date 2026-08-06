@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { LogoMark } from './Logo.jsx'
-
-const MESI = [
-  'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
-  'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre',
-]
-const GIORNI = ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do']
+import { useLanguage } from '../i18n.jsx'
 
 /* Booking engine ufficiale di spiagge.it, incorporabile via iframe:
    https://www.spiagge.it/developers-booking-engine-embed/
@@ -38,13 +33,18 @@ function stessoGiorno(a, b) {
   )
 }
 
-function formatta(d) {
+function formatta(d, locale) {
   return d
-    ? d.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'long' })
+    ? d.toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'long' })
     : null
 }
 
-function Calendario({ range, onSelect }) {
+function nomeMese(d, locale) {
+  const month = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  return month.charAt(0).toLocaleUpperCase(locale) + month.slice(1)
+}
+
+function Calendario({ range, onSelect, copy, locale }) {
   const [vista, setVista] = useState(
     () => new Date(oggi.getFullYear(), oggi.getMonth(), 1)
   )
@@ -69,32 +69,32 @@ function Calendario({ range, onSelect }) {
     vista.getFullYear() === oggi.getFullYear() && vista.getMonth() === oggi.getMonth()
 
   return (
-    <div className="cal" role="group" aria-label="Calendario per scegliere le date">
+    <div className="cal" role="group" aria-label={copy.booking.calendar}>
       <div className="cal-head">
         <button
           type="button"
           className="cal-nav"
           onClick={() => setVista(new Date(vista.getFullYear(), vista.getMonth() - 1, 1))}
           disabled={meseCorrente}
-          aria-label="Mese precedente"
+          aria-label={copy.booking.previous}
         >
           ←
         </button>
         <span className="cal-title">
-          {MESI[vista.getMonth()]} <em>{vista.getFullYear()}</em>
+          {nomeMese(vista, locale)} <em>{vista.getFullYear()}</em>
         </span>
         <button
           type="button"
           className="cal-nav"
           onClick={() => setVista(new Date(vista.getFullYear(), vista.getMonth() + 1, 1))}
-          aria-label="Mese successivo"
+          aria-label={copy.booking.next}
         >
           →
         </button>
       </div>
 
       <div className="cal-grid cal-week" aria-hidden="true">
-        {GIORNI.map((g) => (
+        {copy.booking.weekdays.map((g) => (
           <span key={g}>{g}</span>
         ))}
       </div>
@@ -120,7 +120,7 @@ function Calendario({ range, onSelect }) {
               disabled={passato}
               onClick={() => onSelect(d)}
               aria-pressed={selStart || selEnd || dentro}
-              aria-label={d.toLocaleDateString('it-IT', {
+              aria-label={d.toLocaleDateString(locale, {
                 weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
               })}
             >
@@ -133,12 +133,12 @@ function Calendario({ range, onSelect }) {
   )
 }
 
-function BookingModal({ range, onClose }) {
+function BookingModal({ range, onClose, copy, locale }) {
   const [caricato, setCaricato] = useState(false)
   const { start, end } = range
 
   const url =
-    `${WIDGET_BASE}?lang=it&ybnl=1` +
+    `${WIDGET_BASE}?lang=${copy.bookingLanguage}&ybnl=1` +
     `&startdate=${isoLocale(start)}&enddate=${isoLocale(end || start)}`
 
   useEffect(() => {
@@ -156,7 +156,7 @@ function BookingModal({ range, onClose }) {
       className="booking-modal"
       role="dialog"
       aria-modal="true"
-      aria-label="Prenotazione ombrellone su spiagge.it"
+      aria-label={copy.booking.modalLabel}
       data-lenis-prevent
     >
       <div className="booking-scrim" onClick={onClose} />
@@ -165,10 +165,10 @@ function BookingModal({ range, onClose }) {
           <span className="booking-title">
             <LogoMark size={30} />
             <span>
-              Prenota il tuo ombrellone
+              {copy.booking.modalTitle}
               <small>
-                {formatta(start)}
-                {end ? ` → ${formatta(end)}` : ''}
+                {formatta(start, locale)}
+                {end ? ` → ${formatta(end, locale)}` : ''}
               </small>
             </span>
           </span>
@@ -176,18 +176,18 @@ function BookingModal({ range, onClose }) {
             type="button"
             className="booking-close"
             onClick={onClose}
-            aria-label="Chiudi la prenotazione"
+            aria-label={copy.booking.close}
           >
             ✕
           </button>
         </header>
         <div className="booking-body">
           {!caricato && (
-            <p className="booking-loading script">stiamo aprendo la mappa della spiaggia&hellip;</p>
+            <p className="booking-loading script">{copy.booking.loading}</p>
           )}
           <iframe
             src={url}
-            title="Prenotazione ombrellone — spiagge.it"
+            title={copy.booking.iframeTitle}
             onLoad={() => setCaricato(true)}
             allow="payment"
           />
@@ -198,6 +198,8 @@ function BookingModal({ range, onClose }) {
 }
 
 export default function Prenota() {
+  const { copy } = useLanguage()
+  const { locale } = copy
   const [range, setRange] = useState({ start: null, end: null })
   const [aperto, setAperto] = useState(false)
 
@@ -219,26 +221,26 @@ export default function Prenota() {
   const giorni = start ? (end ? notti + 1 : 1) : 0
 
   const riepilogo = !start
-    ? 'Scegli il giorno di arrivo — e, se resti di più, quello di partenza.'
+    ? copy.booking.chooseSummary
     : end
-      ? `Dal ${formatta(start)} al ${formatta(end)} · ${giorni} giorni di mare`
-      : `${formatta(start)} · 1 giorno di mare`
+      ? copy.booking.range(formatta(start, locale), formatta(end, locale), giorni)
+      : copy.booking.oneDay(formatta(start, locale))
 
-  const oggetto = encodeURIComponent('Richiesta prenotazione ombrellone')
+  const oggetto = encodeURIComponent(copy.booking.emailSubject)
   const corpo = encodeURIComponent(
     start
       ? end
-        ? `Buongiorno,\nvorrei prenotare un ombrellone dal ${formatta(start)} al ${formatta(end)} (${giorni} giorni).\nGrazie!`
-        : `Buongiorno,\nvorrei prenotare un ombrellone per il giorno ${formatta(start)}.\nGrazie!`
-      : 'Buongiorno,\nvorrei informazioni per prenotare un ombrellone.\nGrazie!'
+        ? copy.booking.emailRange(formatta(start, locale), formatta(end, locale), giorni)
+        : copy.booking.emailOneDay(formatta(start, locale))
+      : copy.booking.emailNoDate
   )
 
   return (
     <section className="prenota" id="prenota">
-      <div className="prenota-orbit" aria-hidden="true"><span>sole · mare · relax · </span></div>
+      <div className="prenota-orbit" aria-hidden="true"><span>{copy.booking.orbit}</span></div>
       <div className="section-shell prenota-grid">
         <div className="prenota-copy">
-          <h2 data-reveal>Scegli i giorni.<br /><em>Il mare è già qui.</em></h2>
+          <h2 data-reveal>{copy.booking.heading}</h2>
 
           <p className="prenota-riepilogo" data-reveal aria-live="polite">
             <span className="script">{riepilogo}</span>
@@ -251,25 +253,25 @@ export default function Prenota() {
               aria-disabled={!start}
               onClick={() => { if (start) setAperto(true) }}
             >
-              Scegli l&rsquo;ombrellone
+              {copy.booking.chooseUmbrella}
               <span className="arrow" aria-hidden="true">→</span>
             </button>
             <a
               className="button button-outline-ink"
               href={`mailto:magefsunsrl@gmail.com?subject=${oggetto}&body=${corpo}`}
             >
-              Richiedi via email
+              {copy.booking.email}
             </a>
           </div>
         </div>
 
         <div className="prenota-cal" data-reveal data-delay="0.1">
-          <Calendario range={range} onSelect={scegli} />
+          <Calendario range={range} onSelect={scegli} copy={copy} locale={locale} />
         </div>
       </div>
 
       {aperto && start && (
-        <BookingModal range={range} onClose={() => setAperto(false)} />
+        <BookingModal range={range} onClose={() => setAperto(false)} copy={copy} locale={locale} />
       )}
     </section>
   )

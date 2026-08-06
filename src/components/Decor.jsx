@@ -151,6 +151,38 @@ const SEA_LAYERS = [
   { fill: '#2E7DA6', y: 64, amp: 30, height: '34%', speed: 12 },
 ]
 
+/* Pesciolino stilizzato: corpo a mandorla + coda, usato a banco nel menù. */
+export function Pesce({ className = '' }) {
+  return (
+    <svg
+      className={`decor decor-pesce ${className}`}
+      viewBox="0 0 72 34"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M18 17c14-13 36-13 50 0-14 13-36 13-50 0z"
+        fill="currentColor"
+      />
+      <path d="M18 17 4 6c-1 7-1 15 0 22l14-11z" fill="currentColor" />
+      <circle cx="54" cy="14" r="2.1" fill="#fdfdfb" />
+    </svg>
+  )
+}
+
+/* Un piccolo banco di pesci con qualche posa variata. */
+export function BancoPesci({ className = '' }) {
+  return (
+    <div className={`decor-banco ${className}`} aria-hidden="true">
+      <Pesce className="pesce-1" />
+      <Pesce className="pesce-2" />
+      <Pesce className="pesce-3" />
+      <Pesce className="pesce-4" />
+      <Pesce className="pesce-5" />
+    </div>
+  )
+}
+
 export function SeaLayers({ className = 'wave-layer' }) {
   return SEA_LAYERS.map((layer) => (
     <svg

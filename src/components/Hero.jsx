@@ -4,8 +4,10 @@ import { Gabbiani, GrecaBorder } from './Decor.jsx'
 import { LogoWordmark } from './Logo.jsx'
 import { motionDisabled } from '../lib/motion.js'
 import VideoLoop from './VideoLoop.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 export default function Hero({ ready }) {
+  const { copy } = useLanguage()
   const rootRef = useRef(null)
 
   useLayoutEffect(() => {
@@ -71,28 +73,28 @@ export default function Hero({ ready }) {
       </div>
 
       <p className="hero-place">Santa Maria al Bagno · Nardò</p>
-      <p className="hero-side-note">Lido · Bar · Eventi<br />sulla costa ionica</p>
+      <p className="hero-side-note">{copy.hero.side}</p>
 
       <Gabbiani className="hero-gabbiani" />
       <div className="hero-foam" aria-hidden="true"><span /><span /><span /></div>
 
       <div className="hero-heading">
         <h1 className="hero-wordmark"><LogoWordmark /></h1>
-        <p className="hero-tagline">Sabbia chiara · acqua cristallina</p>
+        <p className="hero-tagline">{copy.hero.tagline}</p>
       </div>
 
       <div className="hero-bottom">
         <a className="button button-sun" href="#prenota">
-          Prenota il tuo posto <span aria-hidden="true">↗</span>
+          {copy.hero.book} <span aria-hidden="true">↗</span>
         </a>
         <a className="hero-scroll" href="#spiaggia">
-          <span>Scopri</span>
+          <span>{copy.hero.discover}</span>
           <i aria-hidden="true" />
         </a>
       </div>
 
       <div className="hero-sun-stamp" aria-hidden="true">
-        <span>Mar Ionio</span>
+        <span>{copy.hero.sea}</span>
       </div>
 
       <GrecaBorder className="hero-greca" />

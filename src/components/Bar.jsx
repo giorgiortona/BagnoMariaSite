@@ -1,47 +1,46 @@
 import VideoLoop from './VideoLoop.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 export default function Bar() {
+  const { copy } = useLanguage()
   return (
     <section className="taste" id="bar">
       <div className="taste-color" aria-hidden="true">
-        <span>sale</span><span>Salento</span><span>sole</span>
+        {copy.bar.words.map((word) => <span key={word}>{word}</span>)}
       </div>
 
       <div className="taste-grid">
         <div className="taste-copy">
-          <h2 data-reveal>Il Salento si mangia<br /><em>con le mani.</em></h2>
-          <p data-reveal>
-            Friselle, pomodori, olio buono. Poi cocktail,
-            vini del territorio e il rito dell’aperitivo quando il sole tocca lo Ionio.
-          </p>
+          <h2 data-reveal>{copy.bar.heading}</h2>
+          <p data-reveal>{copy.bar.lead}</p>
 
           <ul className="taste-list" data-reveal>
-            <li><b>01</b><span>Colazioni lente</span><em>dal mattino</em></li>
-            <li><b>02</b><span>Friselle & piatti freschi</span><em>a pranzo</em></li>
-            <li><b>03</b><span>Cocktail & vini salentini</span><em>al tramonto</em></li>
+            {copy.bar.list.map(([title, note], index) => (
+              <li key={title}><b>0{index + 1}</b><span>{title}</span><em>{note}</em></li>
+            ))}
           </ul>
           
           <div style={{ marginTop: '2.5rem' }} data-reveal>
-            <a className="button button-outline-ink" href="#menu">consulta tutto il menù</a>
+            <a className="button button-outline-ink" href="#menu">{copy.bar.menu}</a>
           </div>
         </div>
 
         <div className="taste-collage">
           <figure className="taste-food" data-media-reveal>
-            <img src="/media/frisella.webp" alt="Friselle salentine con pomodoro davanti al mare" loading="lazy" />
-            <figcaption>pane, pomodoro, mare</figcaption>
+            <img src="/media/frisella.webp" alt={copy.bar.foodAlt} loading="lazy" />
+            <figcaption>{copy.bar.caption}</figcaption>
           </figure>
           <figure className="taste-video" data-media-reveal>
             <VideoLoop
               src="/media/bar-aperitivo.mp4"
               poster="/media/bar-aperitivo-poster.webp"
-              aria-label="La preparazione di un cocktail al tramonto"
+              aria-label={copy.bar.videoLabel}
             />
           </figure>
           <div className="taste-stamp" aria-hidden="true">
-            <span>Made in</span>
+            <span>{copy.bar.madeIn}</span>
             <strong>Salento</strong>
-            <small>con il sole dentro</small>
+            <small>{copy.bar.stamp}</small>
           </div>
         </div>
       </div>

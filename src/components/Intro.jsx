@@ -1,7 +1,9 @@
 import VideoLoop from './VideoLoop.jsx'
 import { SunLines } from './Decor.jsx'
+import { useLanguage } from '../i18n.jsx'
 
 export default function Intro() {
+  const { copy } = useLanguage()
   return (
     <section className="manifesto" id="spiaggia">
       <div className="manifesto-visual">
@@ -9,7 +11,7 @@ export default function Intro() {
           <VideoLoop
             src="/media/spiaggia-drone.mp4"
             poster="/media/spiaggia-drone-poster.webp"
-            aria-label="La spiaggia di Santa Maria al Bagno ripresa dal drone"
+            aria-label={copy.intro.videoLabel}
           />
         </div>
         <SunLines className="manifesto-sun" />
@@ -17,25 +19,23 @@ export default function Intro() {
 
       <div className="manifesto-copy">
         <p className="display-copy" data-reveal>
-          Qui il mare<br />
-          entra <em>piano.</em>
+          {copy.intro.line}
         </p>
         <p className="manifesto-lead" data-reveal>
-          Una lingua di sabbia chiara in un tratto di costa rocciosa. Acqua bassa,
-          trasparente e protetta: il lusso semplice di un'insenatura cittadina.
+          {copy.intro.lead}
         </p>
         <div className="manifesto-facts">
           <div data-reveal>
             <strong>9 — 19</strong>
-            <span>ogni giorno d'estate</span>
+            <span>{copy.intro.facts[0]}</span>
           </div>
           <div data-reveal>
             <strong>0 m</strong>
-            <span>dalla cittadina al mare</span>
+            <span>{copy.intro.facts[1]}</span>
           </div>
           <div data-reveal>
             <strong>∞</strong>
-            <span>tramonti da ricordare</span>
+            <span>{copy.intro.facts[2]}</span>
           </div>
         </div>
       </div>
