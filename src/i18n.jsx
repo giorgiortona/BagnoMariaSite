@@ -304,8 +304,7 @@ function initialLanguage() {
   if (typeof window === 'undefined') return 'it'
   const saved = window.localStorage.getItem('bagnomaria-language')
   if (COPY[saved]) return saved
-  const browserLanguage = window.navigator.language?.slice(0, 2).toLowerCase()
-  return COPY[browserLanguage] ? browserLanguage : 'it'
+  return 'it'
 }
 
 export function LanguageProvider({ children }) {
