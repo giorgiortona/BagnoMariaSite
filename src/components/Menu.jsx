@@ -162,6 +162,11 @@ const MENU_DATA = [
       { nome: 'Bollicine', prezzo: '18.00' },
       { nome: 'Prosecco DOCG Millesimato', prezzo: '25.00' },
       { nome: 'Moët & Chandon Champagne', desc: 'Brut Impérial', prezzo: '100.00' },
+    ],
+  },
+  {
+    categoria: 'Shot',
+    piatti: [
       { nome: 'Cicchetto', prezzo: '3.00' },
       { nome: 'Amaro', prezzo: '4.00' },
       { nome: 'Grappa bianca e barricata', prezzo: '4.00' },

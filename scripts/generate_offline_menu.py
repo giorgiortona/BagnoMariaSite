@@ -72,21 +72,23 @@ GROUPS = [
     ["I Panini"],
     ["Le Insalate"],
     ["I Primi Piatti", "Beverage"],
-    ["Birre in bottiglia 33cl", "Vino, Prosecco e Champagne"],
+    ["Birre in bottiglia 33cl", "Vino, Prosecco e Champagne", "Shot"],
     ["Drink", "I Pestati"],
     ["Selezione Gin e Vodka Premium"],
 ]
 
 
 def register_fonts() -> None:
-    bodoni = "/System/Library/Fonts/Supplemental/Bodoni 72.ttc"
-    avenir = "/System/Library/Fonts/Avenir Next.ttc"
-    pdfmetrics.registerFont(TTFont(FONT_DISPLAY, bodoni, subfontIndex=0))
-    pdfmetrics.registerFont(TTFont(FONT_DISPLAY_ITALIC, bodoni, subfontIndex=1))
-    pdfmetrics.registerFont(TTFont(FONT_SANS, avenir, subfontIndex=7))
-    pdfmetrics.registerFont(TTFont(FONT_SANS_LIGHT, avenir, subfontIndex=10))
-    pdfmetrics.registerFont(TTFont(FONT_SANS_BOLD, avenir, subfontIndex=2))
-    pdfmetrics.registerFont(TTFont(FONT_SANS_ITALIC, avenir, subfontIndex=4))
+    fonts_dir = ROOT / "fonts"
+    bodoni = str(fonts_dir / "BodoniModa.ttf")
+    bodoni_italic = str(fonts_dir / "BodoniModa-Italic.ttf")
+    manrope = str(fonts_dir / "Manrope.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_DISPLAY, bodoni))
+    pdfmetrics.registerFont(TTFont(FONT_DISPLAY_ITALIC, bodoni_italic))
+    pdfmetrics.registerFont(TTFont(FONT_SANS, manrope))
+    pdfmetrics.registerFont(TTFont(FONT_SANS_LIGHT, manrope))
+    pdfmetrics.registerFont(TTFont(FONT_SANS_BOLD, manrope))
+    pdfmetrics.registerFont(TTFont(FONT_SANS_ITALIC, manrope))
 
 
 def extract_menu_data() -> list[dict]:
@@ -147,13 +149,18 @@ process.stdout.write(JSON.stringify(data));
 
 
 def prepare_logo() -> None:
-    converter = shutil.which("rsvg-convert")
-    if not converter:
-        raise RuntimeError("rsvg-convert non trovato")
-    subprocess.run(
-        [converter, "-w", "1600", "-o", str(LOGO_RAW), str(LOGO_SVG)],
-        check=True,
-    )
+    if not LOGO_RAW.exists():
+        converter = shutil.which("rsvg-convert")
+        if converter:
+            subprocess.run(
+                [converter, "-w", "1600", "-o", str(LOGO_RAW), str(LOGO_SVG)],
+                check=True,
+            )
+        else:
+            raise RuntimeError(
+                "rsvg-convert non trovato. Genera il logo PNG manualmente:\n"
+                f"  npx -y sharp-cli -i {LOGO_SVG} -o {LOGO_RAW} -- resize 1600"
+            )
     image = Image.open(LOGO_RAW).convert("RGBA")
     ink = (7, 84, 125)
     colored = Image.new("RGBA", image.size, (*ink, 255))
@@ -268,16 +275,26 @@ def draw_diet_icon(
 
 def prepare_fondale() -> None:
     """Ritaglia il fotogramma del fondale in verticale, pronto per la stampa."""
-    if not FONDALE_SRC.exists():
+    if FONDALE_PRINT.exists() or not FONDALE_SRC.exists():
         return
-    subprocess.run(
-        [
-            "ffmpeg", "-y", "-v", "error", "-i", str(FONDALE_SRC),
-            "-vf", "crop=ih*108/192:ih",
-            str(FONDALE_PRINT),
-        ],
-        check=True,
-    )
+    ffmpeg = shutil.which("ffmpeg")
+    if ffmpeg:
+        subprocess.run(
+            [
+                ffmpeg, "-y", "-v", "error", "-i", str(FONDALE_SRC),
+                "-vf", "crop=ih*108/192:ih",
+                str(FONDALE_PRINT),
+            ],
+            check=True,
+        )
+    else:
+        img = Image.open(FONDALE_SRC)
+        w, h = img.size
+        target_w = int(h * 108 / 192)
+        left = (w - target_w) // 2
+        img.crop((left, 0, left + target_w, h)).convert("RGB").save(
+            str(FONDALE_PRINT), "JPEG", quality=92
+        )
 
 
 def draw_sea_background(c: canvas.Canvas) -> None:

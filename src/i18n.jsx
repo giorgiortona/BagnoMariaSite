@@ -93,6 +93,7 @@ const COPY = {
       heading: <>Ci sono sere che<br />restano <em>addosso.</em></>,
       lead: 'Quando l’ultimo ombrellone si chiude, la spiaggia resta a voi: tre modi per prendervela tutta.',
       cta: 'Immagina il tuo evento',
+      whatsappMessage: 'Ciao! Vorrei organizzare un evento da voi il [inserisci data]. Potremmo organizzare una chiamata per parlarne? Grazie.',
       posterAlt: 'Festa degli sposi al Bagno Maria',
       posterSmall: 'non vediamo l’ora di organizzare',
       posterTitle: 'Il tuo evento in spiaggia',
@@ -191,6 +192,7 @@ const COPY = {
     events: {
       heading: <>Some evenings<br /><em>stay with you.</em></>,
       lead: 'When the last umbrella closes, the beach is yours: three ways to enjoy it all.', cta: 'Imagine your event',
+      whatsappMessage: 'Hello! I would like to organise an event at your place on [insert date]. Could we arrange a call to talk about it? Thank you.',
       posterAlt: 'Wedding celebration at Bagno Maria', posterSmall: 'we cannot wait to organise', posterTitle: 'Your event on the beach',
       proposals: [
         ['Beach weddings', 'Say “I do” with your feet in the sand and the Ionian Sea as your witness. We arrange the beach, ceremony and dinner; you only have to look at each other.'],
@@ -273,6 +275,7 @@ const COPY = {
     events: {
       heading: <>Il y a des soirées<br />qui restent <em>en vous.</em></>,
       lead: 'Lorsque le dernier parasol se ferme, la plage est à vous : trois façons d’en profiter pleinement.', cta: 'Imaginez votre événement',
+      whatsappMessage: 'Bonjour ! Je souhaiterais organiser un événement chez vous le [insérer la date]. Pourrions-nous convenir d’un appel pour en parler ? Merci.',
       posterAlt: 'Fête de mariage à Bagno Maria', posterSmall: 'nous avons hâte d’organiser', posterTitle: 'Votre événement sur la plage',
       proposals: [
         ['Mariages sur la plage', 'Dites « oui » les pieds dans le sable avec la mer Ionienne pour témoin. Nous préparons la plage, la cérémonie et le dîner ; vous n’avez plus qu’à vous regarder.'],

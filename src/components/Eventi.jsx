@@ -1,8 +1,11 @@
 import VideoLoop from './VideoLoop.jsx'
 import { useLanguage } from '../i18n.jsx'
 
+const WHATSAPP_NUMBER = '393209376491'
+
 export default function Eventi() {
   const { copy } = useLanguage()
+  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(copy.events.whatsappMessage)}`
   return (
     <section className="events" id="eventi">
       <div className="events-background" aria-hidden="true">
@@ -15,7 +18,13 @@ export default function Eventi() {
         <div className="events-copy">
           <h2 data-reveal>{copy.events.heading}</h2>
           <p data-reveal>{copy.events.lead}</p>
-          <a className="button button-outline-light" href="#contatti" data-reveal>
+          <a
+            className="button button-outline-light"
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            data-reveal
+          >
             {copy.events.cta} <span aria-hidden="true">↗</span>
           </a>
         </div>
