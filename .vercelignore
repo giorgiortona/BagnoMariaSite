@@ -3,5 +3,4 @@ tmp/
 graphify-out/
 .venv/
 brand/
-fonts/
 *.pdf
