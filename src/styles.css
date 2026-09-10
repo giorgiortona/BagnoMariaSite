@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/Manrope.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('../fonts/BodoniModa.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('../fonts/BodoniModa-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
 :root {
   --ink: #07547d;
   --ink-deep: #033b5c;
@@ -13,7 +37,7 @@
   --line-light: rgba(255, 255, 255, 0.36);
   --display: 'Bodoni Moda', Georgia, serif;
   --sans: 'Manrope', Arial, sans-serif;
-  --hand: 'Nothing You Could Do', 'Segoe Print', cursive;
+  --hand: 'Segoe Print', 'Bradley Hand', cursive;
   --ease: cubic-bezier(0.76, 0, 0.24, 1);
   --pad: clamp(1.25rem, 3vw, 3.5rem);
 }
@@ -2422,17 +2446,61 @@ address {
 }
 
 .contact-map {
+  position: relative;
+  display: grid;
   width: min(100%, 1540px);
   height: min(62vh, 42rem);
   margin: 5rem auto 0;
   overflow: hidden;
-  filter: saturate(0.55) contrast(1.08);
+  place-items: center;
+  border: 1px solid var(--line-dark);
+  background:
+    linear-gradient(30deg, transparent 48%, rgba(7, 84, 125, 0.12) 49%, rgba(7, 84, 125, 0.12) 51%, transparent 52%) 0 0 / 5rem 5rem,
+    linear-gradient(150deg, transparent 48%, rgba(7, 84, 125, 0.08) 49%, rgba(7, 84, 125, 0.08) 51%, transparent 52%) 0 0 / 7rem 7rem,
+    var(--sand);
 }
 
-.contact-map iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+.contact-map-card {
+  display: grid;
+  max-width: 36rem;
+  justify-items: center;
+  gap: 1.1rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  background: var(--stone);
+  box-shadow: 0 1.5rem 5rem rgba(3, 59, 92, 0.12);
+  text-align: center;
+}
+
+.contact-map-pin {
+  display: grid;
+  width: 3.75rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--ink);
+  color: var(--stone);
+  font-size: 1.4rem;
+}
+
+.contact-map-pin span {
+  transform: rotate(45deg);
+}
+
+.contact-map-card strong {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.contact-map-card p {
+  max-width: 29rem;
+  font-size: 0.82rem;
+}
+
+.contact-map-card .button {
+  min-width: min(100%, 17rem);
 }
 
 /* Footer */

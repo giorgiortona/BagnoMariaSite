@@ -38,14 +38,20 @@ export default function Contatti() {
         </div>
       </div>
 
-      <div className="contact-map" data-reveal>
-        <iframe
-          title={copy.contact.mapTitle}
-          src="https://www.google.com/maps?q=Bagnomaria,+Via+Fra+Graziano+da+Nard%C3%B2+30,+Santa+Maria+al+Bagno&z=16&output=embed"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          allowFullScreen
-        />
+      <div className="contact-map" data-reveal aria-label={copy.contact.mapTitle}>
+        <div className="contact-map-card">
+          <span className="contact-map-pin" aria-hidden="true"><span>●</span></span>
+          <strong>Bagno Maria</strong>
+          <p>Via Fra Graziano da Nardò, 30 · Santa Maria al Bagno</p>
+          <a
+            className="button button-ink"
+            href="https://www.google.com/maps/place/Bagnomaria/@40.1304604,17.9935316,17z"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {copy.contact.maps} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </section>
   )
