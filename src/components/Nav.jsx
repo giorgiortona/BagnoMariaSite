@@ -29,7 +29,13 @@ export default function Nav() {
     const onHashChange = () => setMenuActive(window.location.hash === '#menu')
     onHashChange()
     window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', onHashChange)
+    window.addEventListener('bagnomaria:locationchange', onHashChange)
+    return () => {
+      window.removeEventListener('hashchange', onHashChange)
+      window.removeEventListener('popstate', onHashChange)
+      window.removeEventListener('bagnomaria:locationchange', onHashChange)
+    }
   }, [])
 
   const close = () => setOpen(false)

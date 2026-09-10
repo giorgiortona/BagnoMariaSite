@@ -157,6 +157,11 @@ address {
   outline-offset: 4px;
 }
 
+main[id],
+section[id] {
+  scroll-margin-top: 6.5rem;
+}
+
 .section-shell {
   width: min(100%, 1540px);
   margin: 0 auto;
@@ -2263,15 +2268,19 @@ address {
   position: relative;
   display: grid;
   width: min(100%, 78rem);
+  min-width: 0;
   height: min(92vh, 57rem);
   overflow: hidden;
   background: var(--stone);
   color: var(--ink);
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .booking-head {
   display: flex;
+  width: 100%;
+  min-width: 0;
   min-height: 5rem;
   align-items: center;
   justify-content: space-between;
@@ -2281,15 +2290,19 @@ address {
 
 .booking-title {
   display: flex;
+  min-width: 0;
+  flex: 1;
   align-items: center;
   gap: 0.8rem;
   font-family: var(--display);
   font-size: 1.2rem;
   font-style: italic;
+  margin: 0;
 }
 
 .booking-title > span {
   display: flex;
+  min-width: 0;
   flex-direction: column;
 }
 
@@ -2316,21 +2329,83 @@ address {
 
 .booking-body {
   position: relative;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
 }
 
 .booking-body iframe {
+  display: block;
   width: 100%;
+  min-width: 0;
   height: 100%;
   border: 0;
 }
 
 .booking-loading {
   position: absolute;
+  z-index: 1;
   top: 50%;
   right: 0;
   left: 0;
+  pointer-events: none;
   text-align: center;
+}
+
+.booking-fallback {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 4vw, 2rem);
+  bottom: clamp(1rem, 4vw, 2rem);
+  left: clamp(1rem, 4vw, 2rem);
+  display: grid;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 0.8rem 2.4rem rgba(3, 59, 92, 0.16);
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.booking-fallback strong {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.booking-fallback span,
+.booking-footer {
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+
+.booking-footer {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.2rem;
+  border-top: 1px solid var(--line-dark);
+  background: var(--stone);
+  gap: 1rem;
+}
+
+.booking-footer a {
+  min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.85rem;
+  border: 1px solid var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.booking-footer > span {
+  min-width: 0;
 }
 
 /* Contact */
@@ -3463,6 +3538,25 @@ address {
   .booking-card {
     width: 100%;
     height: 100svh;
+  }
+
+  .booking-head {
+    min-height: 4.5rem;
+  }
+
+  .booking-title {
+    font-size: 1rem;
+  }
+
+  .booking-footer {
+    min-height: 4rem;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .booking-footer a {
+    justify-content: center;
   }
 
   .contact {

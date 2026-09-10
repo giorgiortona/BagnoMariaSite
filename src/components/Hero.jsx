@@ -79,7 +79,10 @@ export default function Hero({ ready }) {
       <div className="hero-foam" aria-hidden="true"><span /><span /><span /></div>
 
       <div className="hero-heading">
-        <h1 className="hero-wordmark"><LogoWordmark /></h1>
+        <h1 className="hero-wordmark">
+          <span className="sr-only">{copy.meta.title}</span>
+          <LogoWordmark label={null} />
+        </h1>
         <p className="hero-tagline">{copy.hero.tagline}</p>
       </div>
 

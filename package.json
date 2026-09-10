@@ -4,20 +4,20 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "check:security": "node scripts/check-security.mjs",
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run check:security && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "gsap": "^3.12.5",
     "lenis": "^1.1.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
-    "pdf-parse": "^2.4.5",
-    "pdfjs-dist": "^6.1.200",
-    "vite": "^5.4.11"
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
   }
 }

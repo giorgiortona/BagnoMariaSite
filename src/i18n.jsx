@@ -11,8 +11,8 @@ const COPY = {
     locale: 'it-IT',
     bookingLanguage: 'it',
     meta: {
-      title: 'Bagno Maria · Lido a Santa Maria al Bagno · Puglia',
-      description: 'Bagno Maria — lido, bar ed eventi a Santa Maria al Bagno, Nardò. Una piccola baia di sabbia, mare trasparente e tramonti sullo Ionio.',
+      title: 'Bagno Maria | Lido, bar ed eventi a Santa Maria al Bagno',
+      description: 'Scopri Bagno Maria: lido con spiaggia attrezzata, bar, aperitivi ed eventi a Santa Maria al Bagno, Nardò. Prenota ombrellone e lettini online.',
     },
     common: {
       skip: 'Vai al contenuto',
@@ -76,6 +76,10 @@ const COPY = {
       modalTitle: 'Prenota il tuo ombrellone',
       close: 'Chiudi la prenotazione',
       loading: 'stiamo aprendo la mappa della spiaggia…',
+      slowTitle: 'La mappa sta impiegando più del previsto.',
+      slowMessage: 'Controlla la connessione oppure apri la prenotazione direttamente su Spiagge.it.',
+      providerNote: 'Dati e pagamento sono gestiti da Spiagge.it.',
+      openExternal: 'Apri su Spiagge.it',
       iframeTitle: 'Prenotazione ombrellone — spiagge.it',
       heading: <>Scegli i giorni.<br /><em>Il mare è già qui.</em></>,
       chooseSummary: 'Scegli il giorno di arrivo — e, se resti di più, quello di partenza.',
@@ -137,7 +141,7 @@ const COPY = {
     locale: 'en-GB',
     bookingLanguage: 'en',
     meta: {
-      title: 'Bagno Maria · Beach club in Santa Maria al Bagno · Puglia',
+      title: 'Bagno Maria | Beach club, bar and events in Santa Maria al Bagno',
       description: 'Bagno Maria — beach club, bar and events in Santa Maria al Bagno, Nardò. A small sandy bay, clear sea and Ionian sunsets.',
     },
     common: { skip: 'Skip to content', language: 'Select language', backToTop: 'Bagno Maria — back to top' },
@@ -178,7 +182,12 @@ const COPY = {
       calendar: 'Calendar for choosing dates', previous: 'Previous month', next: 'Next month',
       weekdays: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
       modalLabel: 'Beach umbrella booking on spiagge.it', modalTitle: 'Book your beach umbrella', close: 'Close booking',
-      loading: 'opening the beach map…', iframeTitle: 'Beach umbrella booking — spiagge.it',
+      loading: 'opening the beach map…',
+      slowTitle: 'The beach map is taking longer than expected.',
+      slowMessage: 'Check your connection or open the booking directly on Spiagge.it.',
+      providerNote: 'Your details and payment are handled by Spiagge.it.',
+      openExternal: 'Open on Spiagge.it',
+      iframeTitle: 'Beach umbrella booking — spiagge.it',
       heading: <>Choose your days.<br /><em>The sea is already here.</em></>,
       chooseSummary: 'Choose your arrival day — and your departure day if you are staying longer.',
       oneDay: (date) => `${date} · 1 day by the sea`,
@@ -220,7 +229,7 @@ const COPY = {
     locale: 'fr-FR',
     bookingLanguage: 'fr',
     meta: {
-      title: 'Bagno Maria · Plage privée à Santa Maria al Bagno · Pouilles',
+      title: 'Bagno Maria | Plage privée, bar et événements à Santa Maria al Bagno',
       description: 'Bagno Maria — plage privée, bar et événements à Santa Maria al Bagno, Nardò. Une petite baie de sable, une mer transparente et des couchers de soleil sur la mer Ionienne.',
     },
     common: { skip: 'Aller au contenu', language: 'Choisir la langue', backToTop: 'Bagno Maria — retour en haut' },
@@ -261,7 +270,12 @@ const COPY = {
       calendar: 'Calendrier pour choisir les dates', previous: 'Mois précédent', next: 'Mois suivant',
       weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
       modalLabel: 'Réservation de parasol sur spiagge.it', modalTitle: 'Réservez votre parasol', close: 'Fermer la réservation',
-      loading: 'ouverture du plan de la plage…', iframeTitle: 'Réservation de parasol — spiagge.it',
+      loading: 'ouverture du plan de la plage…',
+      slowTitle: 'Le plan de la plage met plus de temps que prévu à s’ouvrir.',
+      slowMessage: 'Vérifiez votre connexion ou ouvrez directement la réservation sur Spiagge.it.',
+      providerNote: 'Vos données et votre paiement sont gérés par Spiagge.it.',
+      openExternal: 'Ouvrir sur Spiagge.it',
+      iframeTitle: 'Réservation de parasol — spiagge.it',
       heading: <>Choisissez vos jours.<br /><em>La mer est déjà là.</em></>,
       chooseSummary: 'Choisissez votre jour d’arrivée — et votre jour de départ si vous restez plus longtemps.',
       oneDay: (date) => `${date} · 1 journée à la mer`,
@@ -321,6 +335,9 @@ export function LanguageProvider({ children }) {
     document.querySelector('meta[name="description"]')?.setAttribute('content', copy.meta.description)
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', copy.meta.title)
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', copy.meta.description)
+    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', copy.locale.replace('-', '_'))
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', copy.meta.title)
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', copy.meta.description)
   }, [copy, language])
 
   const value = useMemo(() => ({ language, setLanguage, copy }), [copy, language])

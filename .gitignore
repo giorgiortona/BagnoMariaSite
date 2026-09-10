@@ -6,6 +6,6 @@ dist/
 brand/fonts/
 output/qr/
 tmp/
-
 # lavorazione del reel: fotogrammi intermedi, non il filmato finale
 reel/.cache/
+.vercel

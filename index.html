@@ -2,27 +2,84 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <!--
-      Icone con un nome tutto loro, non il generico /favicon.svg: in locale
-      i progetti si scambiano le porte (5173, 5174, …) e il browser tiene in
-      cache l'icona per origine, così ci ritrovavamo il trattore di un altro
-      sito. Nome unico + ?v= evitano che le icone si mescolino.
-    -->
-    <link rel="icon" type="image/svg+xml" href="/favicon-bagnomaria.svg?v=1" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-bagnomaria-32.png?v=1" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-bagnomaria.png?v=1" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-bagnomaria.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-bagnomaria-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-bagnomaria.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Bagno Maria — lido, bar ed eventi a Santa Maria al Bagno, Nardò. Una piccola baia di sabbia, mare trasparente e tramonti sullo Ionio."
+      content="Scopri Bagno Maria: lido con spiaggia attrezzata, bar, aperitivi ed eventi a Santa Maria al Bagno, Nardò. Prenota ombrellone e lettini online."
     />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#0b79a5" />
-    <meta property="og:title" content="Bagno Maria · Santa Maria al Bagno" />
-    <meta property="og:description" content="Una piccola baia. Un’estate intera." />
-    <meta property="og:image" content="/media/hero-poster.webp" />
+    <link rel="canonical" href="https://www.bagnomaria.com/" />
+    <meta property="og:title" content="Bagno Maria | Lido, bar ed eventi a Santa Maria al Bagno" />
+    <meta property="og:description" content="Spiaggia attrezzata, bar, aperitivi ed eventi sul mare a Santa Maria al Bagno, Nardò. Prenota ombrellone e lettini online." />
+    <meta property="og:image" content="https://www.bagnomaria.com/media/baia-panorama.webp" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="La baia e la spiaggia di Bagno Maria a Santa Maria al Bagno" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.bagnomaria.com/" />
+    <meta property="og:site_name" content="Bagno Maria" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bagno Maria | Lido, bar ed eventi a Santa Maria al Bagno" />
+    <meta name="twitter:description" content="Spiaggia attrezzata, bar, aperitivi ed eventi sul mare a Santa Maria al Bagno, Nardò." />
+    <meta name="twitter:image" content="https://www.bagnomaria.com/media/baia-panorama.webp" />
     <link rel="preload" as="image" href="/media/hero-poster.webp" fetchpriority="high" />
-    <title>Bagno Maria · Lido a Santa Maria al Bagno · Puglia</title>
+    <title>Bagno Maria | Lido, bar ed eventi a Santa Maria al Bagno</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.bagnomaria.com/#website",
+            "url": "https://www.bagnomaria.com/",
+            "name": "Bagno Maria",
+            "alternateName": ["Bagnomaria", "Bagno Maria Santa Maria al Bagno"],
+            "inLanguage": "it-IT"
+          },
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://www.bagnomaria.com/#business",
+            "name": "Bagno Maria",
+            "alternateName": "Bagnomaria",
+            "url": "https://www.bagnomaria.com/",
+            "description": "Lido con spiaggia attrezzata, bar, aperitivi ed eventi a Santa Maria al Bagno, Nardò.",
+            "logo": "https://www.bagnomaria.com/favicon-bagnomaria.svg",
+            "image": "https://www.bagnomaria.com/media/baia-panorama.webp",
+            "telephone": "+39 333 444 4182",
+            "email": "magefsunsrl@gmail.com",
+            "hasMap": "https://www.google.com/maps/place/Bagnomaria/@40.1304604,17.9935316,17z",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Via Fra Graziano da Nardò, 30",
+              "postalCode": "73048",
+              "addressLocality": "Santa Maria al Bagno",
+              "addressRegion": "LE",
+              "addressCountry": "IT"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 40.1304604,
+              "longitude": 17.9935316
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "19:00"
+            },
+            "sameAs": [
+              "https://www.instagram.com/_bagnomaria_/",
+              "https://www.facebook.com/profile.php?id=100064888320146"
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

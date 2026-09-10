@@ -25,11 +25,13 @@ export default function App() {
   const { copy, language } = useLanguage()
   const [ready, setReady] = useState(false)
   const mainRef = useRef(null)
+  const lenisRef = useRef(null)
 
   useEffect(() => {
     if (motionDisabled()) return undefined
 
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenisRef.current = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (time) => lenis.raf(time * 1000)
 
@@ -39,6 +41,7 @@ export default function App() {
     return () => {
       gsap.ticker.remove(raf)
       lenis.destroy()
+      if (lenisRef.current === lenis) lenisRef.current = null
     }
   }, [])
 
@@ -183,12 +186,106 @@ export default function App() {
     return () => window.cancelAnimationFrame(frame)
   }, [language, ready])
 
+  useEffect(() => {
+    if (!ready) return undefined
+
+    const getTarget = (hash) => {
+      if (hash === '#top') return 0
+      if (!hash || hash === '#') return null
+      try {
+        return document.getElementById(decodeURIComponent(hash.slice(1)))
+      } catch {
+        return null
+      }
+    }
+
+    const scrollToHash = (hash, immediate = false, focusTarget = false) => {
+      const target = getTarget(hash)
+      if (target === null) return false
+
+      const navHeight = document.querySelector('.site-nav')?.getBoundingClientRect().height || 0
+      const fallbackOffset = target === 0 ? 0 : -(Math.ceil(navHeight) + 12)
+      const finish = () => {
+        ScrollTrigger.update()
+        if (focusTarget && target instanceof HTMLElement) {
+          target.focus({ preventScroll: true })
+        }
+      }
+
+      ScrollTrigger.refresh()
+      if (lenisRef.current && !motionDisabled()) {
+        lenisRef.current.scrollTo(target, {
+          /* Lenis rispetta scroll-margin-top: sommare anche un offset qui
+             nasconderebbe troppo contenuto sopra la sezione. */
+          offset: 0,
+          immediate,
+          duration: immediate ? 0 : 1.05,
+          onComplete: finish,
+        })
+      } else {
+        const top = target === 0
+          ? 0
+          : target.getBoundingClientRect().top + window.scrollY + fallbackOffset
+        window.scrollTo({ top, behavior: immediate ? 'auto' : 'smooth' })
+        finish()
+      }
+      return true
+    }
+
+    const onAnchorClick = (event) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) return
+
+      const link = event.target.closest('a[href^="#"]')
+      if (!link) return
+
+      const hash = link.getAttribute('href')
+      if (getTarget(hash) === null) return
+
+      event.preventDefault()
+      const oldUrl = window.location.href
+      if (window.location.hash !== hash) window.history.pushState(null, '', hash)
+      window.dispatchEvent(new CustomEvent('bagnomaria:locationchange', {
+        detail: { oldUrl, newUrl: window.location.href },
+      }))
+
+      window.requestAnimationFrame(() => {
+        scrollToHash(hash, false, link.classList.contains('skip-link'))
+      })
+    }
+
+    const onHistoryNavigation = () => {
+      window.requestAnimationFrame(() => scrollToHash(window.location.hash || '#top', true))
+    }
+
+    document.addEventListener('click', onAnchorClick)
+    window.addEventListener('hashchange', onHistoryNavigation)
+    window.addEventListener('popstate', onHistoryNavigation)
+
+    const initialFrame = window.requestAnimationFrame(() => {
+      if (window.location.hash) scrollToHash(window.location.hash, true)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(initialFrame)
+      document.removeEventListener('click', onAnchorClick)
+      window.removeEventListener('hashchange', onHistoryNavigation)
+      window.removeEventListener('popstate', onHistoryNavigation)
+    }
+  }, [ready])
+
   return (
     <>
       <a className="skip-link" href="#contenuto">{copy.common.skip}</a>
       <Preloader key={language} onDone={() => setReady(true)} />
       <Nav />
-      <main id="contenuto" ref={mainRef}>
+      <main id="contenuto" ref={mainRef} tabIndex="-1">
         <Hero ready={ready} />
         <GrecaBorder className="site-greca site-greca-white" />
         <Intro />
